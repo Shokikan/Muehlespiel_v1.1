@@ -1,0 +1,27 @@
+@startuml
+
+class Controller
+{
+
+}
+
+class Spieler
+{
+    + Steingrau : 
+    + setzte() : void
+
+}
+
+class Spielfeld
+{
+    
+}
+
+class Spielregeln
+{
+    + setzten() : void
+    + zug() : void
+    + springen() : void
+}
+
+@enduml

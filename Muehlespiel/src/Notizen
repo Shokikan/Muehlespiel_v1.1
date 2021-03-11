@@ -1,0 +1,30 @@
+Mühlespiel
+
+9 Steine pro Spieler, die Steine habe zwei verschiedene Farben
+2 Spieler
+24 Eck-/Schnittpunkte
+3 Phasen
+
+Sielfeld besteht aus 3 Quadrate welches bei jeder Seite eine Linie von aussen nach innen
+durch laufen. Dadurch entstehen Schnittpunkte
+
+1. Phase - Setzphase
+>   Der Spieler kann pro Zug nur 1 Stein Setzen solange er steine hat.
+>   In der Setzphase können Mühlen entstehen
+>   Es können schon erste Steine durch Mühlen entfernt werden
+>   Es dürfen keine Steine von einer Mühle entfernt werden
+
+2. Phase - Zugphase
+>   Spieler können pro Zug nur 1 Stein verschieben
+>   Der Stein kann nur zu einem freien anliegenden Punkt geschoben werden
+>   Wenn ein Spieler keines seiner Steine verschieben kann hat er verloren
+>   Ein Spieler ist in der Zugphase solange er mehr als 3 Steine besitzt
+
+3. Phase - Sprungphase
+>   Wenn ein Spieler nur noch 3 Steine besitzt kann er springen
+>   Beim Springen kann der Stein auf jeden freien Punkt gesetzt werden.
+>   Wenn der Spieler weniger wie 3 Steine hat, hat er verloren
+
+Bedingungen um zu Verlieren
+> weniger als 3 Steine
+> kann keines seiner Steine bewegen
