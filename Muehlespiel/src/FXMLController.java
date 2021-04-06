@@ -1,9 +1,12 @@
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class FXMLController implements Initializable {
@@ -13,8 +16,11 @@ public class FXMLController implements Initializable {
 
     @FXML
     private URL location;
-
+    
     @FXML
+    private Spieler currentPlayer;
+    private Spieler Player1;
+    private Spieler Player2;
     private Spielregeln regel;
 
     @FXML
@@ -162,26 +168,302 @@ public class FXMLController implements Initializable {
     private Circle circ24;
 
     @FXML
-    void manageMouseClick(MouseEvent event) {
+    void manageMouseClickBox1(MouseEvent event) {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            circ1.setFill(Color.BEIGE);
+        } else {
+            circ1.setFill(Color.GREY);
+        }
+        tokencounter();
+        changePlayer();
+    }
+
+    @FXML
+    void manageMouseClickBox2(MouseEvent event) {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            circ2.setFill(Color.BEIGE);
+        } else {
+            circ2.setFill(Color.GREY);
+        }
+        tokencounter();
+        changePlayer();
+    }
+
+    @FXML
+    void manageMouseClickBox3(MouseEvent event) {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            circ3.setFill(Color.BEIGE);
+        } else {
+            circ3.setFill(Color.GREY);
+        }
+        tokencounter();
+        changePlayer();
+    }
+
+    @FXML
+    void manageMouseClickBox4(MouseEvent event) {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            circ4.setFill(Color.BEIGE);
+        } else {
+            circ4.setFill(Color.GREY);
+        }
+        tokencounter();
+        changePlayer();
+    }
+
+    @FXML
+    void manageMouseClickBox5(MouseEvent event) {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            circ5.setFill(Color.BEIGE);
+        } else {
+            circ5.setFill(Color.GREY);
+        }
+        tokencounter();
+        changePlayer();
+    }
+
+    @FXML
+    void manageMouseClickBox6(MouseEvent event) {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            circ6.setFill(Color.BEIGE);
+        } else {
+            circ6.setFill(Color.GREY);
+        }
+        tokencounter();
+        changePlayer();
+    }
+
+    @FXML
+    void manageMouseClickBox7(MouseEvent event) {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            circ7.setFill(Color.BEIGE);
+        } else {
+            circ7.setFill(Color.GREY);
+        }
+        tokencounter();
+        changePlayer();
+    }
+
+    @FXML
+    void manageMouseClickBox8(MouseEvent event) {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            circ8.setFill(Color.BEIGE);
+        } else {
+            circ8.setFill(Color.GREY);
+        }
+        tokencounter();
+        changePlayer();
+    }
+
+    @FXML
+    void manageMouseClickBox9(MouseEvent event) {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            circ9.setFill(Color.BEIGE);
+        } else {
+            circ9.setFill(Color.GREY);
+        }
+        tokencounter();
+        changePlayer();
+    }
+
+    @FXML
+    void manageMouseClickBox10(MouseEvent event) {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            circ10.setFill(Color.BEIGE);
+        } else {
+            circ10.setFill(Color.GREY);
+        }
+        tokencounter();
+        changePlayer();
+    }
+
+    @FXML
+    void manageMouseClickBox11(MouseEvent event) {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            circ11.setFill(Color.BEIGE);
+        } else {
+            circ11.setFill(Color.GREY);
+        }
+        tokencounter();
+        changePlayer();
+    }
+
+    @FXML
+    void manageMouseClickBox12(MouseEvent event) {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            circ12.setFill(Color.BEIGE);
+        } else {
+            circ12.setFill(Color.GREY);
+        }
+        tokencounter();
+        changePlayer();
+    }
+
+    @FXML
+    void manageMouseClickBox13(MouseEvent event) {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            circ13.setFill(Color.BEIGE);
+        } else {
+            circ13.setFill(Color.GREY);
+        }
+        tokencounter();
+        changePlayer();
+    }
+
+    @FXML
+    void manageMouseClickBox14(MouseEvent event) {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            circ14.setFill(Color.BEIGE);
+        } else {
+            circ14.setFill(Color.GREY);
+        }
+        tokencounter();
+        changePlayer();
+    }
+
+    @FXML
+    void manageMouseClickBox15(MouseEvent event) {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            circ15.setFill(Color.BEIGE);
+        } else {
+            circ15.setFill(Color.GREY);
+        }
+        tokencounter();
+        changePlayer();
+    }
+
+    @FXML
+    void manageMouseClickBox16(MouseEvent event) {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            circ16.setFill(Color.BEIGE);
+        } else {
+            circ16.setFill(Color.GREY);
+        }
+        tokencounter();
+        changePlayer();
+    }
+
+    @FXML
+    void manageMouseClickBox17(MouseEvent event) {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            circ17.setFill(Color.BEIGE);
+        } else {
+            circ17.setFill(Color.GREY);
+        }
+        tokencounter();
+        changePlayer();
+    }
+
+    @FXML
+    void manageMouseClickBox18(MouseEvent event) {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            circ18.setFill(Color.BEIGE);
+        } else {
+            circ18.setFill(Color.GREY);
+        }
+        tokencounter();
+        changePlayer();
+    }
+
+    @FXML
+    void manageMouseClickBox19(MouseEvent event) {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            circ19.setFill(Color.BEIGE);
+        } else {
+            circ19.setFill(Color.GREY);
+        }
+        tokencounter();
+        changePlayer();
+    }
+
+    @FXML
+    void manageMouseClickBox20(MouseEvent event) {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            circ20.setFill(Color.BEIGE);
+        } else {
+            circ20.setFill(Color.GREY);
+        }
+        tokencounter();
+        changePlayer();
+    }
+
+    @FXML
+    void manageMouseClickBox21(MouseEvent event) {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            circ21.setFill(Color.BEIGE);
+        } else {
+            circ21.setFill(Color.GREY);
+        }
+        tokencounter();
+        changePlayer();
+    }
+
+    @FXML
+    void manageMouseClickBox22(MouseEvent event) {
         
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            circ22.setFill(Color.BEIGE);
+        } else {
+            circ22.setFill(Color.GREY);
+        }
+        tokencounter();
+        changePlayer();
     }
 
     @FXML
-    void manageMouseClickbox2(MouseEvent event) {
-
+    void manageMouseClickBox23(MouseEvent event) {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            circ23.setFill(Color.BEIGE);
+        } else {
+            circ23.setFill(Color.GREY);
+        }
+        tokencounter();
+        changePlayer();
     }
 
     @FXML
-    void mouseClick(MouseEvent event) {
-
+    void manageMouseClickBox24(MouseEvent event) {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            circ24.setFill(Color.BEIGE);
+        } else {
+            circ24.setFill(Color.GREY);
+        }
+        tokencounter();
+        changePlayer();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        currentPlayer = new Spieler(1, 0);
+        Player1 = new Spieler(1, 0);
+        Player2 = new Spieler(2, 0);
         regel = new Spielregeln();
     }
 
-    public void 
+    private void placeToken() {
+        if
+        return;
+    }
+    private int tokencounter() {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            Player1.setanzSteine(Player1.getanzSteine() + 1);
+            System.out.println("Player1 tokens: " + Player1.getanzSteine());
+            return Player1.getanzSteine();
+        } else {
+            Player2.setanzSteine(Player2.getanzSteine() + 1);
+            System.out.println("Player2 tokens: " + Player2.getanzSteine());
+            return Player2.getanzSteine() + 1;
+        }
+    }
+    private int changePlayer() {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            currentPlayer = Player2;
+            return currentPlayer.getSpielerNummer();
+        } else {
+            currentPlayer = Player1;
+            return currentPlayer.getSpielerNummer();
+        }
+    }
 
     @FXML
     void initialize() {

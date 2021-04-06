@@ -1,0 +1,5 @@
+String source1 = event.getSource().toString();
+        String source2 = event.getPickResult().getIntersectedNode().getId();
+        System.out.println("Full String: " + source1);
+        System.out.println("Just the id: " + source2);
+        System.out.println(" " + source2);
