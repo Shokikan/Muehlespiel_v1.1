@@ -11,6 +11,8 @@ import javafx.scene.shape.Circle;
 
 public class FXMLController implements Initializable {
 
+    HashMap<Pane, Integer> pmap = new HashMap<Pane, Integer>();
+
     @FXML
     private ResourceBundle resources;
 
@@ -167,16 +169,34 @@ public class FXMLController implements Initializable {
     @FXML
     private Circle circ24;
 
+    /* Hier wurde jedes einzelne wichtige Gridbox definiert, ich habe ein test versuch gemacht mit dem Mousevent*/
+
     @FXML
     void manageMouseClickBox1(MouseEvent event) {
-        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
-            circ1.setFill(Color.BEIGE);
-        } else {
-            circ1.setFill(Color.GREY);
+        if (tokencounter() <= 9) {
+            if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+                circ1.setFill(Color.BEIGE);
+            } else {
+                circ1.setFill(Color.GREY);
+            }
+            tokencounter();
+            changePlayer();
+        } else if (currentPlayer.getanzSteine() > 3) {
+            if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+                if (circ1.getFill().equals(Color.BEIGE)) {
+                    circ1.setFill(Color.TRANSPARENT);
+                } else if (circ1.getFill().equals(Color.GREY)) {
+                    circ1.setFill(Color.TRANSPARENT);
+                } else {
+                    if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+                        circ1.setFill(Color.BEIGE);
+                    } else {
+                        circ1.setFill(Color.GREY);
+                    }
+                }
+            }
         }
-        tokencounter();
-        changePlayer();
-    }
+    } 
 
     @FXML
     void manageMouseClickBox2(MouseEvent event) {
@@ -432,6 +452,11 @@ public class FXMLController implements Initializable {
         changePlayer();
     }
 
+    private boolean check() {
+        if (
+    }
+
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         currentPlayer = new Spieler(1, 0);
@@ -440,10 +465,6 @@ public class FXMLController implements Initializable {
         regel = new Spielregeln();
     }
 
-    private void placeToken() {
-        if
-        return;
-    }
     private int tokencounter() {
         if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
             Player1.setanzSteine(Player1.getanzSteine() + 1);
@@ -455,6 +476,7 @@ public class FXMLController implements Initializable {
             return Player2.getanzSteine() + 1;
         }
     }
+
     private int changePlayer() {
         if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
             currentPlayer = Player2;
@@ -464,6 +486,9 @@ public class FXMLController implements Initializable {
             return currentPlayer.getSpielerNummer();
         }
     }
+
+    
+
 
     @FXML
     void initialize() {
