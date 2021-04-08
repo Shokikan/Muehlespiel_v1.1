@@ -2,12 +2,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-import org.graalvm.compiler.nodes.extended.GetClassNode;
-
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -27,13 +23,12 @@ public class FXMLController implements Initializable {
     private Spieler currentPlayer;
     private Spieler Player1;
     private Spieler Player2;
-    private Boolean[] paneStatus = new Boolean[24];
-    private int[] id = new int[24];
-    private String[] arraypid = new String[24];
-    private String color;
+    private Boolean[] paneStatus = new Boolean[25];
     private String pid;
+    Boolean muehle = false;
     Spielfeld sf = new Spielfeld();
     HashMap<String, Circle> testhash = new HashMap<String, Circle>();
+    HashMap<String, Integer> pidhash = new HashMap<String, Integer>();
 
     @FXML
     private Pane box1;
@@ -185,428 +180,152 @@ public class FXMLController implements Initializable {
     /* Hier wurde jedes einzelne wichtige Gridbox definiert, ich habe ein test versuch gemacht mit dem Mousevent*/
 
     @FXML
-    void manageMouseClickBox1(MouseEvent event) {
+    void manageMouseClicked(MouseEvent event) {
         TestHashMap();
+        pidHashMap();
+        //setfalse();
 
         pae = (Pane) event.getSource();
         pid = pae.getId();
         System.out.println(pid);
-
-        if(currentPlayer.getanzZuege()<9) {
-            ueberpruefe();
-        }else{
-            return;
-        }
-    }
+        //checkpid();
         
 
-    @FXML
-    void manageMouseClickBox2(MouseEvent event) {
-        TestHashMap();
-
-        pae = (Pane) event.getSource();
-        pid = pae.getId();
-        System.out.println(pid);
-
         if(currentPlayer.getanzZuege()<9) {
             ueberpruefe();
+            checkpane();
+        }else if(currentPlayer.getanzSteine()==3) {
+            return;
         }else{
             return;
         }
     }
 
-    @FXML
-    void manageMouseClickBox3(MouseEvent event) {
-        TestHashMap();
-
-        pae = (Pane) event.getSource();
-        pid = pae.getId();
-        System.out.println(pid);
-
-        if(currentPlayer.getanzZuege()<9) {
-            ueberpruefe();
-        }else{
-            return;
-        }
-    }
-
-    @FXML
-    void manageMouseClickBox4(MouseEvent event) {
-        TestHashMap();
-
-        pae = (Pane) event.getSource();
-        pid = pae.getId();
-        System.out.println(pid);
-
-        if(currentPlayer.getanzZuege()<9) {
-            ueberpruefe();
-        }else{
-            return;
-        }
-
-        zugzaehler();
-        changePlayer();
-    }
-
-    @FXML
-    void manageMouseClickBox5(MouseEvent event) {
-        TestHashMap();
-
-        pae = (Pane) event.getSource();
-        pid = pae.getId();
-        System.out.println(pid);
-
-        if(currentPlayer.getanzZuege()<9) {
-            ueberpruefe();
-        }else{
-            return;
-        }
-
-        zugzaehler();
-        changePlayer();
-    }
-
-    @FXML
-    void manageMouseClickBox6(MouseEvent event) {
-        TestHashMap();
-
-        pae = (Pane) event.getSource();
-        pid = pae.getId();
-        System.out.println(pid);
-
-        if(currentPlayer.getanzZuege()<9) {
-            ueberpruefe();
-        }else{
-            return;
-        }
-
-        zugzaehler();
-        changePlayer();
-    }
-
-    @FXML
-    void manageMouseClickBox7(MouseEvent event) {
-        TestHashMap();
-
-        pae = (Pane) event.getSource();
-        pid = pae.getId();
-        System.out.println(pid);
-
-        if(currentPlayer.getanzZuege()<9) {
-            ueberpruefe();
-        }else{
-            return;
-        }
-
-        zugzaehler();
-        changePlayer();
-    }
-
-    @FXML
-    void manageMouseClickBox8(MouseEvent event) {
-        TestHashMap();
-
-        pae = (Pane) event.getSource();
-        pid = pae.getId();
-        System.out.println(pid);
-
-        if(currentPlayer.getanzZuege()<9) {
-            ueberpruefe();
-        }else{
-            return;
-        }
-
-        zugzaehler();
-        changePlayer();
-    }
-
-    @FXML
-    void manageMouseClickBox9(MouseEvent event) {
-        TestHashMap();
-
-        pae = (Pane) event.getSource();
-        pid = pae.getId();
-        System.out.println(pid);
-
-        if(currentPlayer.getanzZuege()<9) {
-            ueberpruefe();
-        }else{
-            return;
-        }
-
-        zugzaehler();
-        changePlayer();
-    }
-
-    @FXML
-    void manageMouseClickBox10(MouseEvent event) {
-        TestHashMap();
-
-        pae = (Pane) event.getSource();
-        pid = pae.getId();
-        System.out.println(pid);
-
-        if(currentPlayer.getanzZuege()<9) {
-            ueberpruefe();
-        }else{
-            return;
-        }
-
-        zugzaehler();
-        changePlayer();
-    }
-
-    @FXML
-    void manageMouseClickBox11(MouseEvent event) {
-        TestHashMap();
-
-        pae = (Pane) event.getSource();
-        pid = pae.getId();
-        System.out.println(pid);
-
-        if(currentPlayer.getanzZuege()<9) {
-            ueberpruefe();
-        }else{
-            return;
-        }
-
-        zugzaehler();
-        changePlayer();
-    }
-
-    @FXML
-    void manageMouseClickBox12(MouseEvent event) {
-        TestHashMap();
-
-        pae = (Pane) event.getSource();
-        pid = pae.getId();
-        System.out.println(pid);
-
-        if(currentPlayer.getanzZuege()<9) {
-            ueberpruefe();
-        }else{
-            return;
-        }
-
-        zugzaehler();
-        changePlayer();
-    }
-
-    @FXML
-    void manageMouseClickBox13(MouseEvent event) {
-        TestHashMap();
-
-        pae = (Pane) event.getSource();
-        pid = pae.getId();
-        System.out.println(pid);
-
-        if(currentPlayer.getanzZuege()<9) {
-            ueberpruefe();
-        }else{
-            return;
-        }
-
-        zugzaehler();
-        changePlayer();
-    }
-
-    @FXML
-    void manageMouseClickBox14(MouseEvent event) {
-        TestHashMap();
-
-        pae = (Pane) event.getSource();
-        pid = pae.getId();
-        System.out.println(pid);
-
-        if(currentPlayer.getanzZuege()<9) {
-            ueberpruefe();
-        }else{
-            return;
-        }
-
-        zugzaehler();
-        changePlayer();
-    }
-
-    @FXML
-    void manageMouseClickBox15(MouseEvent event) {
-        TestHashMap();
-
-        pae = (Pane) event.getSource();
-        pid = pae.getId();
-        System.out.println(pid);
-
-        if(currentPlayer.getanzZuege()<9) {
-            ueberpruefe();
-        }else{
-            return;
-        }
-
-        zugzaehler();
-        changePlayer();
-    }
-
-    @FXML
-    void manageMouseClickBox16(MouseEvent event) {
-        TestHashMap();
-
-        pae = (Pane) event.getSource();
-        pid = pae.getId();
-        System.out.println(pid);
-
-        if(currentPlayer.getanzZuege()<9) {
-            ueberpruefe();
-        }else{
-            return;
-        }
-
-        zugzaehler();
-        changePlayer();
-    }
-
-    @FXML
-    void manageMouseClickBox17(MouseEvent event) {
-        TestHashMap();
-
-        pae = (Pane) event.getSource();
-        pid = pae.getId();
-        System.out.println(pid);
-
-        if(currentPlayer.getanzZuege()<9) {
-            ueberpruefe();
-        }else{
-            return;
-        }
-
-        zugzaehler();
-        changePlayer();
-    }
-
-    @FXML
-    void manageMouseClickBox18(MouseEvent event) {
-        TestHashMap();
-
-        pae = (Pane) event.getSource();
-        pid = pae.getId();
-        System.out.println(pid);
-
-        if(currentPlayer.getanzZuege()<9) {
-            ueberpruefe();
-        }else{
-            return;
-        }
-
-        zugzaehler();
-        changePlayer();
-    }
-
-    @FXML
-    void manageMouseClickBox19(MouseEvent event) {
-        TestHashMap();
-
-        pae = (Pane) event.getSource();
-        pid = pae.getId();
-        System.out.println(pid);
-
-        if(currentPlayer.getanzZuege()<9) {
-            ueberpruefe();
-        }else{
-            return;
-        }
-
-        zugzaehler();
-        changePlayer();
-    }
-
-    @FXML
-    void manageMouseClickBox20(MouseEvent event) {
-        TestHashMap();
-
-        pae = (Pane) event.getSource();
-        pid = pae.getId();
-        System.out.println(pid);
-
-        if(currentPlayer.getanzZuege()<9) {
-            ueberpruefe();
-        }else{
-            return;
-        }
-
-        zugzaehler();
-        changePlayer();
-    }
-
-    @FXML
-    void manageMouseClickBox21(MouseEvent event) {
-        TestHashMap();
-
-        pae = (Pane) event.getSource();
-        pid = pae.getId();
-        System.out.println(pid);
-
-        if(currentPlayer.getanzZuege()<9) {
-            ueberpruefe();
-        }else{
-            return;
-        }
-
-        zugzaehler();
-        changePlayer();
-    }
-
-    @FXML
-    void manageMouseClickBox22(MouseEvent event) {
+    private void checkpane() {
+        switch (pid) {
+            case "1":
+                checkmill1();
+                break;
         
-        TestHashMap();
+            case "2":
+                checkmill2();
+                break;
+            
+            case "3":
+                checkmill3();
+                break;
 
-        pae = (Pane) event.getSource();
-        pid = pae.getId();
-        System.out.println(pid);
+            case "4":
+                checkmill4();
+                break;
 
-        if(currentPlayer.getanzZuege()<9) {
-            ueberpruefe();
-        }else{
-            return;
+            case "5":
+                checkmill5();
+                break;
+
+            case "6":
+                checkmill6();
+                break;
+
+            case "7":
+                checkmill7();
+                break;
+
+            case "8":
+                checkmill8();
+                break;
+
+            case "9":
+                checkmill9();
+                break;
+
+            case "10":
+                checkmill10();
+                break;
+
+            case "11":
+                checkmill11();
+                break;
+
+            case "12":
+                checkmill12();
+                break;
+
+            case "13":
+                checkmill13();
+                break;
+
+            case "14":
+                checkmill14();
+                break;
+
+            case "15":
+                checkmill15();
+                break;
+
+            case "16":
+                checkmill16();
+                break;
+
+            case "17":
+                checkmill17();
+                break;
+
+            case "18":
+                checkmill18();
+                break;
+
+            case "19":
+                checkmill19();
+                break;
+
+            case "20":
+                checkmill20();
+                break;
+
+            case "21":
+                checkmill21();
+                break;
+
+            case "22":
+                checkmill22();
+                break;
+
+            case "23":
+                checkmill23();
+                break;
+
+            case "24":
+                checkmill24();
+                break;
         }
-
-        zugzaehler();
-        changePlayer();
     }
 
-    @FXML
-    void manageMouseClickBox23(MouseEvent event) {
-        TestHashMap();
-
-        pae = (Pane) event.getSource();
-        pid = pae.getId();
-        System.out.println(pid);
-
-        if(currentPlayer.getanzZuege()<9) {
-            ueberpruefe();
-        }else{
-            return;
-        }
-
-        zugzaehler();
-        changePlayer();
-    }
-
-    @FXML
-    void manageMouseClickBox24(MouseEvent event) {
-        TestHashMap();
-
-        pae = (Pane) event.getSource();
-        pid = pae.getId();
-        System.out.println(pid);
-
-        if(currentPlayer.getanzZuege()<9) {
-            ueberpruefe();
-        }else{
-            return;
-        }
-
-        zugzaehler();
-        changePlayer();
+    private void pidHashMap() {
+        pidhash.put("1", 1);
+        pidhash.put("2", 2);
+        pidhash.put("3", 3);
+        pidhash.put("4", 4);
+        pidhash.put("5", 5);
+        pidhash.put("6", 6);
+        pidhash.put("7", 7);
+        pidhash.put("8", 8);
+        pidhash.put("9", 9);
+        pidhash.put("10", 10);
+        pidhash.put("11", 11);
+        pidhash.put("12", 12);
+        pidhash.put("13", 13);
+        pidhash.put("14", 14);
+        pidhash.put("15", 15);
+        pidhash.put("16", 16);
+        pidhash.put("17", 17);
+        pidhash.put("18", 18);
+        pidhash.put("19", 19);
+        pidhash.put("20", 20);
+        pidhash.put("21", 21);
+        pidhash.put("22", 22);
+        pidhash.put("23", 23);
+        pidhash.put("24", 24);
     }
 
     private void TestHashMap() {
@@ -634,8 +353,334 @@ public class FXMLController implements Initializable {
         testhash.put("22", circ22);
         testhash.put("23", circ23);
         testhash.put("24", circ24);
-    } 
+    }
 
+    private Boolean checkmill1() {
+        if((circ1.getFill().equals(circ2.getFill()))&&(circ1.getFill().equals(circ3.getFill()))) {
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else if((circ1.getFill().equals(circ10.getFill()))&&(circ1.getFill().equals(circ22.getFill()))){
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else{
+            muehle = false;
+        }
+        return muehle;
+    }
+
+    private Boolean checkmill2() {
+        if((circ2.getFill().equals(circ1.getFill()))&&(circ2.getFill().equals(circ3.getFill()))) {
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else if((circ2.getFill().equals(circ5.getFill()))&&(circ2.getFill().equals(circ8.getFill()))){
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else{
+            muehle = false;
+        }
+        return muehle;
+    }
+
+    private Boolean checkmill3() {
+        if((circ3.getFill().equals(circ1.getFill()))&&(circ3.getFill().equals(circ2.getFill()))) {
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else if((circ3.getFill().equals(circ15.getFill()))&&(circ3.getFill().equals(circ24.getFill()))){
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else{
+            muehle = false;
+        }
+        return muehle;
+    }
+
+    private Boolean checkmill4() {
+        if((circ4.getFill().equals(circ5.getFill()))&&(circ4.getFill().equals(circ6.getFill()))) {
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else if((circ4.getFill().equals(circ11.getFill()))&&(circ4.getFill().equals(circ19.getFill()))){
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else{
+            muehle = false;
+        }
+        return muehle;
+    }
+
+    private Boolean checkmill5() {
+        if((circ5.getFill().equals(circ4.getFill()))&&(circ5.getFill().equals(circ6.getFill()))) {
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else if((circ5.getFill().equals(circ2.getFill()))&&(circ5.getFill().equals(circ8.getFill()))){
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else{
+            muehle = false;
+        }
+        return muehle;
+    }
+
+    private Boolean checkmill6() {
+        if((circ6.getFill().equals(circ4.getFill()))&&(circ6.getFill().equals(circ5.getFill()))) {
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else if((circ6.getFill().equals(circ14.getFill()))&&(circ6.getFill().equals(circ21.getFill()))){
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else{
+            muehle = false;
+        }
+        return muehle;
+    }
+
+    private Boolean checkmill7() {
+        if((circ7.getFill().equals(circ8.getFill()))&&(circ7.getFill().equals(circ9.getFill()))) {
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else if((circ7.getFill().equals(circ12.getFill()))&&(circ7.getFill().equals(circ16.getFill()))){
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else{
+            muehle = false;
+        }
+        return muehle;
+    }
+
+    private Boolean checkmill8() {
+        if((circ8.getFill().equals(circ7.getFill()))&&(circ8.getFill().equals(circ9.getFill()))) {
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else if((circ8.getFill().equals(circ2.getFill()))&&(circ8.getFill().equals(circ5.getFill()))){
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else{
+            muehle = false;
+        }
+        return muehle;
+    }
+
+    private Boolean checkmill9() {
+        if((circ9.getFill().equals(circ7.getFill()))&&(circ9.getFill().equals(circ8.getFill()))) {
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else if((circ9.getFill().equals(circ13.getFill()))&&(circ9.getFill().equals(circ18.getFill()))){
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else{
+            muehle = false;
+        }
+        return muehle;
+    }
+
+    private Boolean checkmill10() {
+        if((circ10.getFill().equals(circ11.getFill()))&&(circ10.getFill().equals(circ12.getFill()))) {
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else if((circ10.getFill().equals(circ1.getFill()))&&(circ10.getFill().equals(circ22.getFill()))){
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else{
+            muehle = false;
+        }
+        return muehle;
+    }
+
+    private Boolean checkmill11() {
+        if((circ11.getFill().equals(circ10.getFill()))&&(circ11.getFill().equals(circ12.getFill()))) {
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else if((circ11.getFill().equals(circ4.getFill()))&&(circ11.getFill().equals(circ19.getFill()))){
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else{
+            muehle = false;
+        }
+        return muehle;
+    }
+
+    private Boolean checkmill12() {
+        if((circ12.getFill().equals(circ10.getFill()))&&(circ12.getFill().equals(circ11.getFill()))) {
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else if((circ12.getFill().equals(circ7.getFill()))&&(circ12.getFill().equals(circ16.getFill()))){
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else{
+            muehle = false;
+        }
+        return muehle;
+    }
+
+    private Boolean checkmill13() {
+        if((circ13.getFill().equals(circ14.getFill()))&&(circ13.getFill().equals(circ15.getFill()))) {
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else if((circ13.getFill().equals(circ9.getFill()))&&(circ13.getFill().equals(circ18.getFill()))){
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else{
+            muehle = false;
+        }
+        return muehle;
+    }
+
+    private Boolean checkmill14() {
+        if((circ14.getFill().equals(circ13.getFill()))&&(circ14.getFill().equals(circ15.getFill()))) {
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else if((circ14.getFill().equals(circ6.getFill()))&&(circ14.getFill().equals(circ21.getFill()))){
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else{
+            muehle = false;
+        }
+        return muehle;
+    }
+
+    private Boolean checkmill15() {
+        if((circ15.getFill().equals(circ13.getFill()))&&(circ15.getFill().equals(circ14.getFill()))) {
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else if((circ15.getFill().equals(circ3.getFill()))&&(circ15.getFill().equals(circ24.getFill()))){
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else{
+            muehle = false;
+        }
+        return muehle;
+    }
+
+    private Boolean checkmill16() {
+        if((circ16.getFill().equals(circ17.getFill()))&&(circ16.getFill().equals(circ18.getFill()))) {
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else if((circ16.getFill().equals(circ7.getFill()))&&(circ16.getFill().equals(circ12.getFill()))){
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else{
+            muehle = false;
+        }
+        return muehle;
+    }
+
+    private Boolean checkmill17() {
+        if((circ17.getFill().equals(circ16.getFill()))&&(circ17.getFill().equals(circ18.getFill()))) {
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else if((circ17.getFill().equals(circ20.getFill()))&&(circ17.getFill().equals(circ23.getFill()))){
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else{
+            muehle = false;
+        }
+        return muehle;
+    }
+
+    private Boolean checkmill18() {
+        if((circ18.getFill().equals(circ16.getFill()))&&(circ18.getFill().equals(circ17.getFill()))) {
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else if((circ18.getFill().equals(circ9.getFill()))&&(circ18.getFill().equals(circ13.getFill()))){
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else{
+            muehle = false;
+        }
+        return muehle;
+    }
+
+    private Boolean checkmill19() {
+        if((circ19.getFill().equals(circ20.getFill()))&&(circ19.getFill().equals(circ21.getFill()))) {
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else if((circ19.getFill().equals(circ4.getFill()))&&(circ19.getFill().equals(circ11.getFill()))){
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else{
+            muehle = false;
+        }
+        return muehle;
+    }
+
+    private Boolean checkmill20() {
+        if((circ20.getFill().equals(circ19.getFill()))&&(circ20.getFill().equals(circ21.getFill()))) {
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else if((circ20.getFill().equals(circ17.getFill()))&&(circ20.getFill().equals(circ23.getFill()))){
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else{
+            muehle = false;
+        }
+        return muehle;
+    }
+
+    private Boolean checkmill21() {
+        if((circ21.getFill().equals(circ19.getFill()))&&(circ21.getFill().equals(circ20.getFill()))) {
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else if((circ21.getFill().equals(circ6.getFill()))&&(circ21.getFill().equals(circ14.getFill()))){
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else{
+            muehle = false;
+        }
+        return muehle;
+    }
+
+    private Boolean checkmill22() {
+        if((circ22.getFill().equals(circ23.getFill()))&&(circ22.getFill().equals(circ24.getFill()))) {
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else if((circ22.getFill().equals(circ1.getFill()))&&(circ22.getFill().equals(circ10.getFill()))){
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else{
+            muehle = false;
+        }
+        return muehle;
+    }
+
+    private Boolean checkmill23() {
+        if((circ23.getFill().equals(circ22.getFill()))&&(circ23.getFill().equals(circ24.getFill()))) {
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else if((circ23.getFill().equals(circ17.getFill()))&&(circ23.getFill().equals(circ20.getFill()))){
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else{
+            muehle = false;
+        }
+        return muehle;
+    }
+
+    private Boolean checkmill24() {
+        if((circ24.getFill().equals(circ22.getFill()))&&(circ24.getFill().equals(circ23.getFill()))) {
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else if((circ24.getFill().equals(circ3.getFill()))&&(circ24.getFill().equals(circ15.getFill()))){
+            System.out.println("Currentplayer has a mill");
+            muehle = true;
+        }else{
+            muehle = false;
+        }
+        return muehle;
+    }
+
+    private void setfalse() {
+        for(int i = 1; i <= 24; i++){
+            paneStatus[i] = false;
+        }
+    }
+
+    private void checkpid() {
+        for(int i = 1; i <= 24; i++) {
+            if(pidhash.get(pid)==i) {
+                paneStatus[i] = true;
+            }else{
+            }
+        }
+    }
 
     private void ueberpruefe() {
         if(testhash.get(pid).getFill().equals(Color.valueOf("#1f93ff00"))) {
@@ -651,14 +696,6 @@ public class FXMLController implements Initializable {
         }else{
             return;
         }
-    }
-
-    private String setzen() {
-        String Stein;
-        
-        
-
-        return Stein;
     }
     
     @Override
@@ -689,12 +726,7 @@ public class FXMLController implements Initializable {
             return currentPlayer.getSpielerNummer();
         }
     }
-
-    private 
-
     
-
-
     @FXML
     void initialize() {
         assert box1 != null : "fx:id=\"box1\" was not injected: check your FXML file 'view.fxml'.";
@@ -747,6 +779,4 @@ public class FXMLController implements Initializable {
         assert circ24 != null : "fx:id=\"circ24\" was not injected: check your FXML file 'view.fxml'.";
 
     }
-
-    
 }
