@@ -29,8 +29,9 @@ public class FXMLController implements Initializable {
     private Spieler Player2;
     private Boolean[] paneStatus = new Boolean[24];
     private int[] id = new int[24];
-    private String[] arraypid = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24"};
+    private String[] arraypid = new String[24];
     private String color;
+    private String pid;
     Spielfeld sf = new Spielfeld();
     HashMap<String, Circle> testhash = new HashMap<String, Circle>();
 
@@ -178,28 +179,24 @@ public class FXMLController implements Initializable {
     @FXML
     private Circle circ24;
 
+    @FXML
+    private Pane pae;
+
     /* Hier wurde jedes einzelne wichtige Gridbox definiert, ich habe ein test versuch gemacht mit dem Mousevent*/
 
     @FXML
     void manageMouseClickBox1(MouseEvent event) {
         TestHashMap();
 
-        Pane pae = (Pane) event.getSource();
-        String pid = pae.getId();
+        pae = (Pane) event.getSource();
+        pid = pae.getId();
+        System.out.println(pid);
 
-        System.out.println(testhash.get(pid));
-        if(testhash.get(pid).getFill().equals(Color.valueOf("#1f93ff00"))) {
-            if(currentPlayer.getSpielerNummer()==Player1.getSpielerNummer()) {
-                testhash.get(pid).setFill(Color.BEIGE);
-            }else{
-                testhash.get(pid).setFill(Color.GREY);
-            }
+        if(currentPlayer.getanzZuege()<9) {
+            ueberpruefe();
         }else{
             return;
         }
-
-        tokencounter();
-        changePlayer();
     }
         
 
@@ -207,231 +204,408 @@ public class FXMLController implements Initializable {
     void manageMouseClickBox2(MouseEvent event) {
         TestHashMap();
 
-        Pane pae = (Pane) event.getSource();
-        String pid = pae.getId();
+        pae = (Pane) event.getSource();
+        pid = pae.getId();
+        System.out.println(pid);
 
-        System.out.println(testhash.get(pid));
-        if(testhash.get(pid).getFill().equals(Color.valueOf("#1f93ff00"))) {
-            if(currentPlayer.getSpielerNummer()==Player1.getSpielerNummer()) {
-                testhash.get(pid).setFill(Color.BEIGE);
-            }else{
-                testhash.get(pid).setFill(Color.GREY);
-            }
+        if(currentPlayer.getanzZuege()<9) {
+            ueberpruefe();
         }else{
             return;
         }
-
-        tokencounter();
-        changePlayer();
     }
 
     @FXML
     void manageMouseClickBox3(MouseEvent event) {
-        paneStatus[0] = true;
-        id[0] = 0;
+        TestHashMap();
 
-        tokencounter();
-        changePlayer();
+        pae = (Pane) event.getSource();
+        pid = pae.getId();
+        System.out.println(pid);
+
+        if(currentPlayer.getanzZuege()<9) {
+            ueberpruefe();
+        }else{
+            return;
+        }
     }
 
     @FXML
     void manageMouseClickBox4(MouseEvent event) {
-        paneStatus[0] = true;
-        id[0] = 0;
+        TestHashMap();
 
-        tokencounter();
+        pae = (Pane) event.getSource();
+        pid = pae.getId();
+        System.out.println(pid);
+
+        if(currentPlayer.getanzZuege()<9) {
+            ueberpruefe();
+        }else{
+            return;
+        }
+
+        zugzaehler();
         changePlayer();
     }
 
     @FXML
     void manageMouseClickBox5(MouseEvent event) {
-        paneStatus[0] = true;
-        id[0] = 0;
+        TestHashMap();
 
-        tokencounter();
+        pae = (Pane) event.getSource();
+        pid = pae.getId();
+        System.out.println(pid);
+
+        if(currentPlayer.getanzZuege()<9) {
+            ueberpruefe();
+        }else{
+            return;
+        }
+
+        zugzaehler();
         changePlayer();
     }
 
     @FXML
     void manageMouseClickBox6(MouseEvent event) {
-        paneStatus[0] = true;
-        id[0] = 0;
+        TestHashMap();
 
-        tokencounter();
+        pae = (Pane) event.getSource();
+        pid = pae.getId();
+        System.out.println(pid);
+
+        if(currentPlayer.getanzZuege()<9) {
+            ueberpruefe();
+        }else{
+            return;
+        }
+
+        zugzaehler();
         changePlayer();
     }
 
     @FXML
     void manageMouseClickBox7(MouseEvent event) {
-        paneStatus[0] = true;
-        id[0] = 0;
+        TestHashMap();
 
-        tokencounter();
+        pae = (Pane) event.getSource();
+        pid = pae.getId();
+        System.out.println(pid);
+
+        if(currentPlayer.getanzZuege()<9) {
+            ueberpruefe();
+        }else{
+            return;
+        }
+
+        zugzaehler();
         changePlayer();
     }
 
     @FXML
     void manageMouseClickBox8(MouseEvent event) {
-        paneStatus[0] = true;
-        id[0] = 0;
+        TestHashMap();
 
-        tokencounter();
+        pae = (Pane) event.getSource();
+        pid = pae.getId();
+        System.out.println(pid);
+
+        if(currentPlayer.getanzZuege()<9) {
+            ueberpruefe();
+        }else{
+            return;
+        }
+
+        zugzaehler();
         changePlayer();
     }
 
     @FXML
     void manageMouseClickBox9(MouseEvent event) {
-        paneStatus[0] = true;
-        id[0] = 0;
+        TestHashMap();
 
-        tokencounter();
+        pae = (Pane) event.getSource();
+        pid = pae.getId();
+        System.out.println(pid);
+
+        if(currentPlayer.getanzZuege()<9) {
+            ueberpruefe();
+        }else{
+            return;
+        }
+
+        zugzaehler();
         changePlayer();
     }
 
     @FXML
     void manageMouseClickBox10(MouseEvent event) {
-        paneStatus[0] = true;
-        id[0] = 0;
+        TestHashMap();
 
-        tokencounter();
+        pae = (Pane) event.getSource();
+        pid = pae.getId();
+        System.out.println(pid);
+
+        if(currentPlayer.getanzZuege()<9) {
+            ueberpruefe();
+        }else{
+            return;
+        }
+
+        zugzaehler();
         changePlayer();
     }
 
     @FXML
     void manageMouseClickBox11(MouseEvent event) {
-        paneStatus[0] = true;
-        id[0] = 0;
+        TestHashMap();
 
-        tokencounter();
+        pae = (Pane) event.getSource();
+        pid = pae.getId();
+        System.out.println(pid);
+
+        if(currentPlayer.getanzZuege()<9) {
+            ueberpruefe();
+        }else{
+            return;
+        }
+
+        zugzaehler();
         changePlayer();
     }
 
     @FXML
     void manageMouseClickBox12(MouseEvent event) {
-        paneStatus[0] = true;
-        id[0] = 0;
+        TestHashMap();
 
-        tokencounter();
+        pae = (Pane) event.getSource();
+        pid = pae.getId();
+        System.out.println(pid);
+
+        if(currentPlayer.getanzZuege()<9) {
+            ueberpruefe();
+        }else{
+            return;
+        }
+
+        zugzaehler();
         changePlayer();
     }
 
     @FXML
     void manageMouseClickBox13(MouseEvent event) {
-        paneStatus[0] = true;
-        id[0] = 0;
+        TestHashMap();
 
-        
-        tokencounter();
+        pae = (Pane) event.getSource();
+        pid = pae.getId();
+        System.out.println(pid);
+
+        if(currentPlayer.getanzZuege()<9) {
+            ueberpruefe();
+        }else{
+            return;
+        }
+
+        zugzaehler();
         changePlayer();
     }
 
     @FXML
     void manageMouseClickBox14(MouseEvent event) {
-        paneStatus[0] = true;
-        id[0] = 0;
+        TestHashMap();
 
-        
-        tokencounter();
+        pae = (Pane) event.getSource();
+        pid = pae.getId();
+        System.out.println(pid);
+
+        if(currentPlayer.getanzZuege()<9) {
+            ueberpruefe();
+        }else{
+            return;
+        }
+
+        zugzaehler();
         changePlayer();
     }
 
     @FXML
     void manageMouseClickBox15(MouseEvent event) {
-        paneStatus[0] = true;
-        id[0] = 0;
+        TestHashMap();
 
-        
-        tokencounter();
+        pae = (Pane) event.getSource();
+        pid = pae.getId();
+        System.out.println(pid);
+
+        if(currentPlayer.getanzZuege()<9) {
+            ueberpruefe();
+        }else{
+            return;
+        }
+
+        zugzaehler();
         changePlayer();
     }
 
     @FXML
     void manageMouseClickBox16(MouseEvent event) {
-        paneStatus[0] = true;
-        id[0] = 0;
+        TestHashMap();
 
-        
-        tokencounter();
+        pae = (Pane) event.getSource();
+        pid = pae.getId();
+        System.out.println(pid);
+
+        if(currentPlayer.getanzZuege()<9) {
+            ueberpruefe();
+        }else{
+            return;
+        }
+
+        zugzaehler();
         changePlayer();
     }
 
     @FXML
     void manageMouseClickBox17(MouseEvent event) {
-        paneStatus[0] = true;
-        id[0] = 0;
+        TestHashMap();
 
-        
-        tokencounter();
+        pae = (Pane) event.getSource();
+        pid = pae.getId();
+        System.out.println(pid);
+
+        if(currentPlayer.getanzZuege()<9) {
+            ueberpruefe();
+        }else{
+            return;
+        }
+
+        zugzaehler();
         changePlayer();
     }
 
     @FXML
     void manageMouseClickBox18(MouseEvent event) {
-        paneStatus[0] = true;
-        id[0] = 0;
+        TestHashMap();
 
-        
-        tokencounter();
+        pae = (Pane) event.getSource();
+        pid = pae.getId();
+        System.out.println(pid);
+
+        if(currentPlayer.getanzZuege()<9) {
+            ueberpruefe();
+        }else{
+            return;
+        }
+
+        zugzaehler();
         changePlayer();
     }
 
     @FXML
     void manageMouseClickBox19(MouseEvent event) {
-        paneStatus[0] = true;
-        id[0] = 0;
+        TestHashMap();
 
-        
-        tokencounter();
+        pae = (Pane) event.getSource();
+        pid = pae.getId();
+        System.out.println(pid);
+
+        if(currentPlayer.getanzZuege()<9) {
+            ueberpruefe();
+        }else{
+            return;
+        }
+
+        zugzaehler();
         changePlayer();
     }
 
     @FXML
     void manageMouseClickBox20(MouseEvent event) {
-        paneStatus[0] = true;
-        id[0] = 0;
+        TestHashMap();
 
-        
-        tokencounter();
+        pae = (Pane) event.getSource();
+        pid = pae.getId();
+        System.out.println(pid);
+
+        if(currentPlayer.getanzZuege()<9) {
+            ueberpruefe();
+        }else{
+            return;
+        }
+
+        zugzaehler();
         changePlayer();
     }
 
     @FXML
     void manageMouseClickBox21(MouseEvent event) {
-        paneStatus[0] = true;
-        id[0] = 0;
+        TestHashMap();
 
-       
-        tokencounter();
+        pae = (Pane) event.getSource();
+        pid = pae.getId();
+        System.out.println(pid);
+
+        if(currentPlayer.getanzZuege()<9) {
+            ueberpruefe();
+        }else{
+            return;
+        }
+
+        zugzaehler();
         changePlayer();
     }
 
     @FXML
     void manageMouseClickBox22(MouseEvent event) {
         
-        paneStatus[0] = true;
-        id[0] = 0;
+        TestHashMap();
 
-        
-        tokencounter();
+        pae = (Pane) event.getSource();
+        pid = pae.getId();
+        System.out.println(pid);
+
+        if(currentPlayer.getanzZuege()<9) {
+            ueberpruefe();
+        }else{
+            return;
+        }
+
+        zugzaehler();
         changePlayer();
     }
 
     @FXML
     void manageMouseClickBox23(MouseEvent event) {
-        paneStatus[0] = true;
-        id[0] = 0;
+        TestHashMap();
 
-        tokencounter();
+        pae = (Pane) event.getSource();
+        pid = pae.getId();
+        System.out.println(pid);
+
+        if(currentPlayer.getanzZuege()<9) {
+            ueberpruefe();
+        }else{
+            return;
+        }
+
+        zugzaehler();
         changePlayer();
     }
 
     @FXML
     void manageMouseClickBox24(MouseEvent event) {
-        paneStatus[0] = true;
-        id[0] = 0;
+        TestHashMap();
 
-    
-        tokencounter();
+        pae = (Pane) event.getSource();
+        pid = pae.getId();
+        System.out.println(pid);
+
+        if(currentPlayer.getanzZuege()<9) {
+            ueberpruefe();
+        }else{
+            return;
+        }
+
+        zugzaehler();
         changePlayer();
     }
 
@@ -464,25 +638,45 @@ public class FXMLController implements Initializable {
 
 
     private void ueberpruefe() {
+        if(testhash.get(pid).getFill().equals(Color.valueOf("#1f93ff00"))) {
+            if(currentPlayer.getSpielerNummer()==Player1.getSpielerNummer()) {
+                testhash.get(pid).setFill(Color.BEIGE);
+                zugzaehler();
+                changePlayer();
+            }else{
+                testhash.get(pid).setFill(Color.GREY);
+                zugzaehler();
+                changePlayer();
+            }
+        }else{
+            return;
+        }
+    }
+
+    private String setzen() {
+        String Stein;
         
+        
+
+        return Stein;
     }
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        currentPlayer = new Spieler(1, 0);
-        Player1 = new Spieler(1, 0);
-        Player2 = new Spieler(2, 0);
+        currentPlayer = new Spieler(1, 0, 0);
+        Player1 = new Spieler(1, 0, 0);
+        Player2 = new Spieler(2, 0, 0);
     }
 
-    private int tokencounter() {
+    private int zugzaehler() {
         if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
-            Player1.setanzSteine(Player1.getanzSteine() + 1);
-            System.out.println("Player1 tokens: " + Player1.getanzSteine());
-            return Player1.getanzSteine();
+            Player1.setanzZuege(Player1.getanzZuege() + 1);
+            System.out.println("Player1 anzahl Züge: " + Player1.getanzZuege());
+            return Player1.getanzZuege();
         } else {
-            Player2.setanzSteine(Player2.getanzSteine() + 1);
-            System.out.println("Player2 tokens: " + Player2.getanzSteine());
-            return Player2.getanzSteine() + 1;
+            Player2.setanzZuege(Player2.getanzZuege() + 1);
+            System.out.println("Player2 anzahl Züge: " + Player2.getanzZuege());
+            return Player2.getanzZuege();
         }
     }
 
