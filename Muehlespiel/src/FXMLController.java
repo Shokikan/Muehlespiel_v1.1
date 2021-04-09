@@ -25,8 +25,15 @@ public class FXMLController implements Initializable {
     private Spieler Player2;
     private Boolean[] paneStatus = new Boolean[25];
     private String pid;
-    Boolean muehle = false;
+    private String remove = "removetoken";
+    private Boolean muehle = false;
+    private String fillcolor;
+    private String colorgrey = "#808080";
+    private String colorbeige = "#F5F5DC";
+    private String colortransparent = "#00000000";
+
     Spielfeld sf = new Spielfeld();
+
     HashMap<String, Circle> testhash = new HashMap<String, Circle>();
     HashMap<String, Integer> pidhash = new HashMap<String, Integer>();
 
@@ -190,15 +197,124 @@ public class FXMLController implements Initializable {
         System.out.println(pid);
         //checkpid();
         
+        if(currentPlayer.getplayerInstance().equals(remove)){
+            deleteToken();
+            zugzaehler();
+            changePlayer();
+            muehle=false;
+            removeplayerincance();
+            System.out.println("incance of current player" + currentPlayer.getplayerInstance());
+            System.out.println("incance of current player" + Player1.getplayerInstance());
+            System.out.println("incance of current player" + Player2.getplayerInstance());
+        }else{
+            if(currentPlayer.getanzZuege()<9) {
+                ueberpruefe();
+                checkpane();
+                removeToken();
+                if(muehle!=true) {
+                    zugzaehler();
+                    changePlayer();
+                    System.out.println("incance of current player" + currentPlayer.getplayerInstance());
+                    System.out.println("incance of current player" + Player1.getplayerInstance());
+                    System.out.println("incance of current player" + Player2.getplayerInstance());
+                }else{
+                    System.out.println("incance of current player" + currentPlayer.getplayerInstance());
+                    System.out.println("incance of current player" + Player1.getplayerInstance());
+                    System.out.println("incance of current player" + Player2.getplayerInstance());
+                    return;
+                }
+            }else if(currentPlayer.getanzSteine()==3) {
+                return;
+            }else{
+                return;
+            }
+        }        
+    }
 
-        if(currentPlayer.getanzZuege()<9) {
-            ueberpruefe();
-            checkpane();
-        }else if(currentPlayer.getanzSteine()==3) {
-            return;
+    private void removeToken() {
+        if(muehle==true) {
+            currentPlayer.setplayerInstance("removetoken");
         }else{
             return;
         }
+    }
+
+    private void deleteToken() {
+        if(!testhash.get(pid).getFill().equals(Color.valueOf(fillcolor))) {    
+            testhash.get(pid).setFill(Color.valueOf(colortransparent));
+        }else if(testhash.get(pid).getFill().equals(Color.valueOf(fillcolor))) {
+            System.out.println("You can't remove your own token!");
+            deleteToken();
+        }else{
+            System.out.println("Here is no token to be removed!");
+            deleteToken();
+        }
+    }
+
+    private void setfalse() {
+        for(int i = 1; i <= 24; i++){
+            paneStatus[i] = false;
+        }
+    }
+
+    private void checkpid() {
+        for(int i = 1; i <= 24; i++) {
+            if(pidhash.get(pid)==i) {
+                paneStatus[i] = true;
+            }else{
+            }
+        }
+    }
+
+    private void ueberpruefe() {
+        if(testhash.get(pid).getFill().equals(Color.valueOf(colortransparent))) {
+            if(currentPlayer.getSpielerNummer()==Player1.getSpielerNummer()) {
+                testhash.get(pid).setFill(Color.valueOf(colorbeige));
+                fillcolor = colorbeige;
+                System.out.println("Player1 sets token on field " + testhash.get(pid));
+            }else{
+                testhash.get(pid).setFill(Color.valueOf(colorgrey));
+                fillcolor = colorgrey;
+                System.out.println("Player2 sets token on field " + testhash.get(pid));
+            }
+        }else{
+            return;
+        }
+    }
+    
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        currentPlayer = new Spieler(1, 0, 0, " ");
+        Player1 = new Spieler(1, 0, 0, " ");
+        Player2 = new Spieler(2, 0, 0, " ");
+    }
+
+    private int zugzaehler() {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            Player1.setanzZuege(Player1.getanzZuege() + 1);
+            System.out.println("Player1 anzahl Züge: " + Player1.getanzZuege());
+            return Player1.getanzZuege();
+        } else {
+            Player2.setanzZuege(Player2.getanzZuege() + 1);
+            System.out.println("Player2 anzahl Züge: " + Player2.getanzZuege());
+            return Player2.getanzZuege();
+        }
+    }
+
+    private int changePlayer() {
+        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
+            currentPlayer = Player2;
+            return currentPlayer.getSpielerNummer();
+        } else {
+            currentPlayer = Player1;
+            return currentPlayer.getSpielerNummer();
+        }
+    }
+
+    private void removeplayerincance() {
+        currentPlayer.setplayerInstance(" ");
+        Player1.setplayerInstance(" ");
+        Player2.setplayerInstance(" ");
     }
 
     private void checkpane() {
@@ -667,65 +783,7 @@ public class FXMLController implements Initializable {
         return muehle;
     }
 
-    private void setfalse() {
-        for(int i = 1; i <= 24; i++){
-            paneStatus[i] = false;
-        }
-    }
 
-    private void checkpid() {
-        for(int i = 1; i <= 24; i++) {
-            if(pidhash.get(pid)==i) {
-                paneStatus[i] = true;
-            }else{
-            }
-        }
-    }
-
-    private void ueberpruefe() {
-        if(testhash.get(pid).getFill().equals(Color.valueOf("#1f93ff00"))) {
-            if(currentPlayer.getSpielerNummer()==Player1.getSpielerNummer()) {
-                testhash.get(pid).setFill(Color.BEIGE);
-                zugzaehler();
-                changePlayer();
-            }else{
-                testhash.get(pid).setFill(Color.GREY);
-                zugzaehler();
-                changePlayer();
-            }
-        }else{
-            return;
-        }
-    }
-    
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        currentPlayer = new Spieler(1, 0, 0);
-        Player1 = new Spieler(1, 0, 0);
-        Player2 = new Spieler(2, 0, 0);
-    }
-
-    private int zugzaehler() {
-        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
-            Player1.setanzZuege(Player1.getanzZuege() + 1);
-            System.out.println("Player1 anzahl Züge: " + Player1.getanzZuege());
-            return Player1.getanzZuege();
-        } else {
-            Player2.setanzZuege(Player2.getanzZuege() + 1);
-            System.out.println("Player2 anzahl Züge: " + Player2.getanzZuege());
-            return Player2.getanzZuege();
-        }
-    }
-
-    private int changePlayer() {
-        if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
-            currentPlayer = Player2;
-            return currentPlayer.getSpielerNummer();
-        } else {
-            currentPlayer = Player1;
-            return currentPlayer.getSpielerNummer();
-        }
-    }
     
     @FXML
     void initialize() {

@@ -4,11 +4,13 @@ public class Spieler {
     private int anzSteine = 0;
     private int maxAnzSteine = 9;
     private int anzZuege = 0;
+    private String playerinstance;
 
-    public Spieler(int SpielerNummer, int anzSteine, int anzZuege) {
+    public Spieler(int SpielerNummer, int anzSteine, int anzZuege, String playerinstance) {
         this.SpielerNummer = SpielerNummer;
         this.anzSteine = anzSteine;
         this.anzZuege = anzZuege;
+        this.playerinstance = playerinstance;
     }
 
     public int getSpielerNummer() {
@@ -23,6 +25,10 @@ public class Spieler {
         this.anzZuege = anzZuege;
     }
 
+    public void setplayerInstance(String playerinstance) {
+        this.playerinstance = playerinstance;
+    }
+
     public int getanzSteine() {
         return anzSteine;
     }
@@ -33,6 +39,10 @@ public class Spieler {
 
     public int getanzZuege() {
         return anzZuege;
+    }
+
+    public String getplayerInstance() {
+        return playerinstance;
     }
 
     public void setzPhase() {

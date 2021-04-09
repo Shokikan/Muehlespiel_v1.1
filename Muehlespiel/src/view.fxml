@@ -50,122 +50,122 @@
                <children>
                   <Pane id="1" fx:id="box1" onMouseClicked="#manageMouseClicked" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Circle id="circ1" fx:id="circ1" fill="#1f93ff00" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle id="circ1" fx:id="circ1" fill="#00000000" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </Pane>
                   <Pane id="2" fx:id="box2" onMouseClicked="#manageMouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
                      <children>
-                        <Circle id="circ2" fx:id="circ2" fill="#1f93ff00" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle id="circ2" fx:id="circ2" fill="#00000000" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </Pane>
                   <Pane id="3" fx:id="box3" onMouseClicked="#manageMouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6">
                      <children>
-                        <Circle id="circ3" fx:id="circ3" fill="#1f93ff00" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle id="circ3" fx:id="circ3" fill="#00000000" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </Pane>
                   <Pane id="4" fx:id="box4" onMouseClicked="#manageMouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <Circle id="circ4" fx:id="circ4" fill="#1f93ff00" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle id="circ4" fx:id="circ4" fill="#00000000" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </Pane>
                   <Pane id="5" fx:id="box5" onMouseClicked="#manageMouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <children>
-                        <Circle id="circ5" fx:id="circ5" fill="#1f93ff00" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle id="circ5" fx:id="circ5" fill="#00000000" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </Pane>
                   <Pane id="6" fx:id="box6" onMouseClicked="#manageMouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
                      <children>
-                        <Circle id="circ6" fx:id="circ6" fill="#1f93ff00" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle id="circ6" fx:id="circ6" fill="#00000000" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </Pane>
                   <Pane id="7" fx:id="box7" onMouseClicked="#manageMouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <children>
-                        <Circle id="circ7" fx:id="circ7" fill="#1f93ff00" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle id="circ7" fx:id="circ7" fill="#00000000" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </Pane>
                   <Pane id="8" fx:id="box8" onMouseClicked="#manageMouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                      <children>
-                        <Circle id="circ8" fx:id="circ8" fill="#1f93ff00" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle id="circ8" fx:id="circ8" fill="#00000000" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </Pane>
                   <Pane id="9" fx:id="box9" onMouseClicked="#manageMouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
                      <children>
-                        <Circle id="circ9" fx:id="circ9" fill="#1f93ff00" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle id="circ9" fx:id="circ9" fill="#00000000" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </Pane>
                   <Pane id="10" fx:id="box10" onMouseClicked="#manageMouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                      <children>
-                        <Circle id="circ10" fx:id="circ10" fill="#1f93ff00" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle id="circ10" fx:id="circ10" fill="#00000000" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </Pane>
                   <Pane id="11" fx:id="box11" onMouseClicked="#manageMouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <children>
-                        <Circle id="circ11" fx:id="circ11" fill="#1f93ff00" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle id="circ11" fx:id="circ11" fill="#00000000" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </Pane>
                   <Pane id="12" fx:id="box12" onMouseClicked="#manageMouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                      <children>
-                        <Circle id="circ12" fx:id="circ12" fill="#1f93ff00" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle id="circ12" fx:id="circ12" fill="#00000000" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </Pane>
                   <Pane id="13" fx:id="box13" onMouseClicked="#manageMouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
                      <children>
-                        <Circle id="circ13" fx:id="circ13" fill="#1f93ff00" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle id="circ13" fx:id="circ13" fill="#00000000" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </Pane>
                   <Pane id="14" fx:id="box14" onMouseClicked="#manageMouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
                      <children>
-                        <Circle id="circ14" fx:id="circ14" fill="#1f93ff00" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle id="circ14" fx:id="circ14" fill="#00000000" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </Pane>
                   <Pane id="15" fx:id="box15" onMouseClicked="#manageMouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="3">
                      <children>
-                        <Circle id="circ15" fx:id="circ15" fill="#1f93ff00" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle id="circ15" fx:id="circ15" fill="#00000000" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </Pane>
                   <Pane id="16" fx:id="box16" onMouseClicked="#manageMouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
                      <children>
-                        <Circle id="circ16" fx:id="circ16" fill="#1f93ff00" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle id="circ16" fx:id="circ16" fill="#00000000" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </Pane>
                   <Pane id="17" fx:id="box17" onMouseClicked="#manageMouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
                      <children>
-                        <Circle id="circ17" fx:id="circ17" fill="#1f93ff00" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle id="circ17" fx:id="circ17" fill="#00000000" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </Pane>
                   <Pane id="18" fx:id="box18" onMouseClicked="#manageMouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
                      <children>
-                        <Circle id="circ18" fx:id="circ18" fill="#1f93ff00" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle id="circ18" fx:id="circ18" fill="#00000000" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </Pane>
                   <Pane id="19" fx:id="box19" onMouseClicked="#manageMouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <children>
-                        <Circle id="circ19" fx:id="circ19" fill="#1f93ff00" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle id="circ19" fx:id="circ19" fill="#00000000" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </Pane>
                   <Pane id="20" fx:id="box20" onMouseClicked="#manageMouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
                      <children>
-                        <Circle id="circ20" fx:id="circ20" fill="#1f93ff00" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle id="circ20" fx:id="circ20" fill="#00000000" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </Pane>
                   <Pane id="21" fx:id="box21" onMouseClicked="#manageMouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
                      <children>
-                        <Circle id="circ21" fx:id="circ21" fill="#1f93ff00" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle id="circ21" fx:id="circ21" fill="#00000000" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </Pane>
                   <Pane id="22" fx:id="box22" onMouseClicked="#manageMouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
                      <children>
-                        <Circle id="circ22" fx:id="circ22" fill="#1f93ff00" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle id="circ22" fx:id="circ22" fill="#00000000" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </Pane>
                   <Pane id="23" fx:id="box23" onMouseClicked="#manageMouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
                      <children>
-                        <Circle id="circ23" fx:id="circ23" fill="#1f93ff00" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle id="circ23" fx:id="circ23" fill="#00000000" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </Pane>
                   <Pane id="24" fx:id="box24" onMouseClicked="#manageMouseClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="6">
                      <children>
-                        <Circle id="circ24" fx:id="circ24" fill="#1f93ff00" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle id="circ24" fx:id="circ24" fill="#00000000" layoutX="50.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </Pane>
                </children>
