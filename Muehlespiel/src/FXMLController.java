@@ -281,6 +281,14 @@ public class FXMLController implements Initializable {
             return;
         }
     }
+
+    private void reducetoken() {
+        if(currentPlayer.getSpielerNummer()==Player1.getSpielerNummer()) {
+            Player1.setanzSteine(Player1.getanzSteine()-1);
+        }else{
+            Player2.setanzSteine(Player2.getanzSteine()-1);
+        }
+    }
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
