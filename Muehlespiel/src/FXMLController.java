@@ -24,18 +24,25 @@ public class FXMLController implements Initializable {
     private Spieler Player1;
     private Spieler Player2;
     private Boolean[] paneStatus = new Boolean[25];
+    private Boolean[] hmill = new Boolean[9];
+    private Boolean[] vmill = new Boolean[9];
     private String pid;
+    private String lastpid;
     private String remove = "removetoken";
+    private String move = "move";
     private Boolean muehle = false;
     private String fillcolor;
     private String colorgrey = "#808080";
     private String colorbeige = "#F5F5DC";
     private String colortransparent = "#00000000";
+    private int notokens = 0;
 
     Spielfeld sf = new Spielfeld();
 
     HashMap<String, Circle> testhash = new HashMap<String, Circle>();
     HashMap<String, Integer> pidhash = new HashMap<String, Integer>();
+    HashMap<String, Boolean> hmillhash = new HashMap<String, Boolean>();
+    HashMap<String, Boolean> vmillhash = new HashMap<String, Boolean>();
 
     @FXML
     private Pane box1;
@@ -188,50 +195,102 @@ public class FXMLController implements Initializable {
 
     @FXML
     void manageMouseClicked(MouseEvent event) {
+        //setfalse();
         TestHashMap();
         pidHashMap();
-        //setfalse();
+        HMillStatusHashMap();
+        VMillStatusHashMap();
 
         pae = (Pane) event.getSource();
         pid = pae.getId();
         System.out.println(pid);
         //checkpid();
+        if(Player1.getanzZuege()==0) {
+            setfalse();
+            setmillfalse();
+        }
         
-        if(currentPlayer.getplayerInstance().equals(remove)){
-            deleteToken();
-            zugzaehler();
-            changePlayer();
-            muehle=false;
-            removeplayerincance();
-            System.out.println("incance of current player" + currentPlayer.getplayerInstance());
-            System.out.println("incance of current player" + Player1.getplayerInstance());
-            System.out.println("incance of current player" + Player2.getplayerInstance());
-        }else{
-            if(currentPlayer.getanzZuege()<9) {
-                ueberpruefe();
+        if(currentPlayer.getplayerInstance().equals(remove)) {
+            if((hmillhash.get(pid).equals(false))&&(vmillhash.get(pid).equals(false))) {
+                deleteToken();
+                zugzaehler();
+                muehle=false;
+                removeplayerinstance();
+                changePlayer();
+                reducetoken();
+                System.out.println("incance of current player" + currentPlayer.getplayerInstance());
+                System.out.println("incance of current player" + Player1.getplayerInstance());
+                System.out.println("incance of current player" + Player2.getplayerInstance());
+                System.out.println("player1s amount of tokens " + Player1.getanzSteine());
+                System.out.println("player2s amount of tokens " + Player2.getanzSteine());
+            }else if(notokens==5) {
+                System.out.println("No available tokens to take, changing Player!");
+                zugzaehler();
+                removeplayerinstance();
+                changePlayer();
+            }else{
+                System.out.println("You can't remove tokens in a mill!");
+                notokens += 1;
+                return;
+            }
+        }else if(currentPlayer.getplayerInstance().equals(move)) {
+            if(testhash.get(pid).getFill().equals(Color.valueOf(colortransparent))) {
+                undomillswitch();
                 checkpane();
-                removeToken();
                 if(muehle!=true) {
                     zugzaehler();
                     changePlayer();
-                    System.out.println("incance of current player" + currentPlayer.getplayerInstance());
-                    System.out.println("incance of current player" + Player1.getplayerInstance());
-                    System.out.println("incance of current player" + Player2.getplayerInstance());
                 }else{
-                    System.out.println("incance of current player" + currentPlayer.getplayerInstance());
-                    System.out.println("incance of current player" + Player1.getplayerInstance());
-                    System.out.println("incance of current player" + Player2.getplayerInstance());
+                    setplayerinstanceremove();
+                    return;
+                }
+            }else{
+                System.out.println("There is already a token in this field!");
+                removeinstance();
+                return;
+                
+            }
+        }else{
+            if(currentPlayer.getanzZuege()<9) {
+                if(testhash.get(pid).getFill().equals(Color.valueOf(colortransparent))) {
+                    settoken();
+                    checkpane();
+                    setplayerinstanceremove();
+                    increasetoken();
+                    if(muehle!=true) {
+                        zugzaehler();
+                        changePlayer();
+                        System.out.println("incance of current player " + currentPlayer.getplayerInstance());
+                        System.out.println("incance of current player " + Player1.getplayerInstance());
+                        System.out.println("incance of current player " + Player2.getplayerInstance());
+                        System.out.println("player1s amount of tokens " + Player1.getanzSteine());
+                        System.out.println("player2s amount of tokens " + Player2.getanzSteine());
+                    }else{
+                        System.out.println("incance of current player " + currentPlayer.getplayerInstance());
+                        System.out.println("incance of current player " + Player1.getplayerInstance());
+                        System.out.println("incance of current player " + Player2.getplayerInstance());
+                        return;
+                    }
+                }else{
+                    System.out.println("There is already a token in this field!");
                     return;
                 }
             }else if(currentPlayer.getanzSteine()==3) {
                 return;
             }else{
-                return;
+                if(!testhash.get(pid).getFill().equals(Color.valueOf(colortransparent))) {
+                    lastpid = pid;
+                    deleteToken2();
+                }else{
+                    return;
+                }
+                
             }
         }        
     }
 
-    private void removeToken() {
+    // method, which sets the playerinstance of currentplayer "removetoken".
+    private void setplayerinstanceremove() {
         if(muehle==true) {
             currentPlayer.setplayerInstance("removetoken");
         }else{
@@ -239,25 +298,99 @@ public class FXMLController implements Initializable {
         }
     }
 
+    private void setplayerinstancemove() {
+        currentPlayer.setplayerInstance(move);
+    }
+
+    /* method, which cheks if the the current players token isn't the same as the opponents ones. This method will be 
+    again if the player tries to remove his own tokens or if the player clicks on a field without a token. */
     private void deleteToken() {
         if(!testhash.get(pid).getFill().equals(Color.valueOf(fillcolor))) {    
             testhash.get(pid).setFill(Color.valueOf(colortransparent));
         }else if(testhash.get(pid).getFill().equals(Color.valueOf(fillcolor))) {
             System.out.println("You can't remove your own token!");
-            deleteToken();
+            return;
         }else{
             System.out.println("Here is no token to be removed!");
-            deleteToken();
+            return;
         }
     }
 
-    private void setfalse() {
+    private void deleteToken2() {
+        if(!testhash.get(pid).getFill().equals(Color.valueOf(fillcolor))) {    
+            testhash.get(pid).setFill(Color.valueOf(colortransparent));
+            setplayerinstancemove();
+        }else if(testhash.get(pid).getFill().equals(Color.valueOf(fillcolor))) {
+            System.out.println("You can't remove your opponents token!");
+            removeplayerinstance();
+            return;
+        }else{
+            System.out.println("Here is no token to be removed!");
+            removeplayerinstance();
+            return;
+        }
+    }
+
+    private void hundomill() {
+        for(int i = 0; i < 9; i++){
+            if(hmillhash.get(lastpid).equals(hmill[i])) {
+                removeplayerinstance();
+                hmill[i] = false;
+                System.out.println("incance of current player" + currentPlayer.getplayerInstance());
+            }else{
+            }
+        }
+    }
+
+    private void vundomill() {        
+        for(int i = 0; i < 9; i++){
+            if(vmillhash.get(lastpid).equals(vmill[i])) {
+                removeplayerinstance();
+                vmill[i] = false;
+                System.out.println("incance of current player" + currentPlayer.getplayerInstance());
+            }else{
+            }
+        }
+    }
+    
+    private void removeinstance() {
+        removeplayerinstance();
+        System.out.println("incance of current player" + currentPlayer.getplayerInstance());
+        return;
+    }
+
+    private void hundo(){
+        settoken();
+        if(hmillhash.get(lastpid).equals(true)) {
+            hundomill();
+        }else{
+            removeinstance();
+        }
+    }
+
+    private void vundo(){
+        settoken();
+        if(vmillhash.get(lastpid).equals(true)) {
+            vundomill();
+        }else{
+            removeinstance();
+        }
+    }
+
+    public void setfalse() {
         for(int i = 1; i <= 24; i++){
             paneStatus[i] = false;
         }
     }
 
-    private void checkpid() {
+    public void setmillfalse() {
+        for(int i = 1; i <= 8; i++){
+            hmill[i] = false;
+            vmill[i] = false;
+        }
+    }
+
+    /*private void setpaneStatustrue() {
         for(int i = 1; i <= 24; i++) {
             if(pidhash.get(pid)==i) {
                 paneStatus[i] = true;
@@ -266,27 +399,47 @@ public class FXMLController implements Initializable {
         }
     }
 
-    private void ueberpruefe() {
-        if(testhash.get(pid).getFill().equals(Color.valueOf(colortransparent))) {
-            if(currentPlayer.getSpielerNummer()==Player1.getSpielerNummer()) {
-                testhash.get(pid).setFill(Color.valueOf(colorbeige));
-                fillcolor = colorbeige;
-                System.out.println("Player1 sets token on field " + testhash.get(pid));
+    private void setpaneStatusfalse() {
+        for(int i = 1; i <= 24; i++) {
+            if(pidhash.get(pid)==i) {
+                paneStatus[i] = false;
             }else{
-                testhash.get(pid).setFill(Color.valueOf(colorgrey));
-                fillcolor = colorgrey;
-                System.out.println("Player2 sets token on field " + testhash.get(pid));
             }
+       }
+    }*/
+
+    /* This method is used to place tokens by setting the circle color to the players color.
+    First it checks if the circle is filled.*/
+    private void settoken() {
+        if(currentPlayer.getSpielerNummer()==Player1.getSpielerNummer()) {
+            testhash.get(pid).setFill(Color.valueOf(colorbeige));
+            fillcolor = colorbeige;
+            System.out.println("Player1 sets token on field " + testhash.get(pid));
         }else{
-            return;
+            testhash.get(pid).setFill(Color.valueOf(colorgrey));
+            fillcolor = colorgrey;
+            System.out.println("Player2 sets token on field " + testhash.get(pid));
         }
     }
 
+    /*private void movetoken() {
+        if()
+    }*/
+
+    // This method, reduces the tokens of a player, if the opponent player is able to take one away
     private void reducetoken() {
         if(currentPlayer.getSpielerNummer()==Player1.getSpielerNummer()) {
             Player1.setanzSteine(Player1.getanzSteine()-1);
         }else{
             Player2.setanzSteine(Player2.getanzSteine()-1);
+        }
+    }
+
+    private void increasetoken() {
+        if(currentPlayer.getSpielerNummer()==Player1.getSpielerNummer()) {
+            Player1.setanzSteine(Player1.getanzSteine()+1);
+        }else{
+            Player2.setanzSteine(Player2.getanzSteine()+1);
         }
     }
     
@@ -297,6 +450,7 @@ public class FXMLController implements Initializable {
         Player2 = new Spieler(2, 0, 0, " ");
     }
 
+    // counts the amount of turns of a player
     private int zugzaehler() {
         if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
             Player1.setanzZuege(Player1.getanzZuege() + 1);
@@ -309,6 +463,7 @@ public class FXMLController implements Initializable {
         }
     }
 
+    // changes the current player to the next player
     private int changePlayer() {
         if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
             currentPlayer = Player2;
@@ -319,12 +474,14 @@ public class FXMLController implements Initializable {
         }
     }
 
-    private void removeplayerincance() {
+    // removes the player inctance of all players
+    private void removeplayerinstance() {
         currentPlayer.setplayerInstance(" ");
         Player1.setplayerInstance(" ");
         Player2.setplayerInstance(" ");
     }
 
+    // switch case for all the different kinds of mills
     private void checkpane() {
         switch (pid) {
             case "1":
@@ -425,7 +582,309 @@ public class FXMLController implements Initializable {
         }
     }
 
-    private void pidHashMap() {
+    private void undomillswitch() {
+        switch (lastpid) {
+            case "1":
+                if(pid.equals("2")){
+                    vundo();
+                }else if(pid.equals("10")){
+                    hundo();
+                }else{
+                    System.out.println("Token is too far away, you can't jump yet!");
+                    return;
+                }
+                break;
+        
+            case "2":
+                if(pid.equals("1")){
+                    vundo();
+                }else if(pid.equals("5")){
+                    hundo();
+                }else if(pid.equals("3")){
+                    vundo();
+                }else{
+                    System.out.println("Token is too far away, you can't jump yet!");
+                    return;
+                }
+                break;
+
+            case "3":
+                if(pid.equals("2")){
+                    vundo();
+                }else if(pid.equals("15")){
+                    hundo();
+                }else{
+                    System.out.println("Token is too far away, you can't jump yet!");
+                    return;
+                }
+                break;
+            
+            case "4":
+                if(pid.equals("5")){
+                    vundo();
+                }else if(pid.equals("11")) {
+                    hundo();
+                }else{
+                    System.out.println("Token is too far away, you can't jump yet!");
+                    return;
+                }
+                break;
+
+            case "5":
+                if(pid.equals("2")){
+                    hundo();
+                }else if(pid.equals("4")) {
+                    vundo();
+                }else if(pid.equals("6")) {
+                    vundo();
+                }else if(pid.equals("8")) {
+                    hundo();
+                }else{
+                    System.out.println("Token is too far away, you can't jump yet!");
+                    return;
+                }
+                break;
+                    
+            case "6":
+                if(pid.equals("5")) {
+                    vundo();
+                }else if(pid.equals("14")) {
+                    hundo();
+                }else{
+                    System.out.println("Token is too far away, you can't jump yet!");
+                    return;
+                }
+                break;
+            
+            case "7":
+                if(pid.equals("8")) {
+                    vundo();
+                }else if(pid.equals("12")) {
+                    hundo();
+                }else{
+                    System.out.println("Token is too far away, you can't jump yet!");
+                    return;
+                }
+                break;
+
+            case "8":
+                if(pid.equals("5")) {
+                    hundo();
+                }else if(pid.equals("7")) {
+                    vundo();
+                }else if(pid.equals("9")) {
+                    vundo();
+                }else{
+                    System.out.println("Token is too far away, you can't jump yet!");
+                    return;
+                }
+                break;
+
+            case "9":
+                if(pid.equals("8")) {
+                    vundo();
+                }else if(pid.equals("13")) {
+                    hundo();
+                }else{
+                    System.out.println("Token is too far away, you can't jump yet!");
+                    return;
+                }
+                break;
+
+            case "10":
+                if(pid.equals("1")) {
+                    hundo();
+                }else if(pid.equals("11")) {
+                    vundo();
+                }else if(pid.equals("22")) {
+                    hundo();
+                }else{
+                    System.out.println("Token is too far away, you can't jump yet!");
+                    return;
+                }
+                break;
+
+            case "11":
+                if(pid.equals("4")) {
+                    hundo();
+                }else if(pid.equals("10")) {
+                    vundo();
+                }else if(pid.equals("12")) {
+                    vundo();
+                }else if(pid.equals("19")) {
+                    hundo();
+                }else{
+                    System.out.println("Token is too far away, you can't jump yet!");
+                    return;
+                }
+                break;
+
+            case "12":
+                if(pid.equals("7")) {
+                    hundo();
+                }else if(pid.equals("11")) {
+                    vundo();
+                }else if(pid.equals("16")) {
+                    hundo();
+                }else{
+                    System.out.println("Token is too far away, you can't jump yet!");
+                    return;
+                }
+                break;
+
+            case "13":
+                if(pid.equals("9")) {
+                    hundo();
+                }else if(pid.equals("14")) {
+                    vundo();
+                }else if(pid.equals("18")) {
+                    hundo();
+                }else{
+                    System.out.println("Token is too far away, you can't jump yet!");
+                    return;
+                }
+                break;
+
+            case "14":
+                if(pid.equals("6")) {
+                    hundo();
+                }else if(pid.equals("13")) {
+                    vundo();
+                }else if(pid.equals("15")) {
+                    vundo();
+                }else if(pid.equals("21")) {
+                    hundo();
+                }else{
+                    System.out.println("Token is too far away, you can't jump yet!");
+                    return;
+                }
+                break;
+
+            case "15":
+                if(pid.equals("3")) {
+                    hundo();
+                }else if(pid.equals("14")) {
+                    vundo();
+                }else if(pid.equals("24")) {
+                    hundo();
+                }else{
+                    System.out.println("Token is too far away, you can't jump yet!");
+                    return;
+                }
+                break;
+
+            case "16":
+                if(pid.equals("12")) {
+                    hundo();
+                }else if(pid.equals("17")) {
+                    vundo();
+                }else{
+                    System.out.println("Token is too far away, you can't jump yet!");
+                    return;
+                }
+                break;
+
+            case "17":
+                if(pid.equals("16")) {
+                    vundo();
+                }else if(pid.equals("18")) {
+                    vundo();
+                }else if(pid.equals("20")) {
+                    hundo();
+                }else{
+                    System.out.println("Token is too far away, you can't jump yet!");
+                    return;
+                }
+                break;
+
+            case "18":
+                if(pid.equals("13")) {
+                    hundo();
+                }else if(pid.equals("17")) {
+                    vundo();
+                }else{
+                    System.out.println("Token is too far away, you can't jump yet!");
+                    return;
+                }
+                break;
+
+            case "19":
+                if(pid.equals("11")) {
+                    hundo();
+                }else if(pid.equals("20")) {
+                    vundo();
+                }else{
+                    System.out.println("Token is too far away, you can't jump yet!");
+                    return;
+                }
+                break;
+
+            case "20":
+                if(pid.equals("17")) {
+                    hundo();
+                }else if(pid.equals("19")) {
+                    vundo();
+                }else if(pid.equals("21")) {
+                    vundo();
+                }else if(pid.equals("23")) {
+                    hundo();
+                }else{
+                    System.out.println("Token is too far away, you can't jump yet!");
+                    return;
+                }
+                break;
+
+            case "21":
+                if(pid.equals("14")) {
+                    hundo();
+                }else if(pid.equals("20")) {
+                    vundo();
+                }else{
+                    System.out.println("Token is too far away, you can't jump yet!");
+                    return;
+                }
+                break;
+
+            case "22":
+                if(pid.equals("10")) {
+                    hundo();
+                }else if(pid.equals("23")) {
+                    vundo();
+                }else{
+                    System.out.println("Token is too far away, you can't jump yet!");
+                    return;
+                }
+                break;
+
+            case "23":
+                if(pid.equals("20")) {
+                    hundo();
+                }else if(pid.equals("22")) {
+                    vundo();
+                }else if(pid.equals("24")) {
+                    vundo();
+                }else{
+                    System.out.println("Token is too far away, you can't jump yet!");
+                    return;
+                }
+                break;
+
+            case "24":
+                if(pid.equals("23")) {
+                    vundo();
+                }else if(pid.equals("15")) {
+                    hundo();
+                }else{
+                    System.out.println("Token is too far away, you can't jump yet!");
+                    return;
+                }
+                break;
+
+
+        }
+    }
+
+    public void pidHashMap() {
         pidhash.put("1", 1);
         pidhash.put("2", 2);
         pidhash.put("3", 3);
@@ -452,7 +911,7 @@ public class FXMLController implements Initializable {
         pidhash.put("24", 24);
     }
 
-    private void TestHashMap() {
+    public void TestHashMap() {
         testhash.put("1", circ1);
         testhash.put("2", circ2);
         testhash.put("3", circ3);
@@ -479,13 +938,70 @@ public class FXMLController implements Initializable {
         testhash.put("24", circ24);
     }
 
+    public void HMillStatusHashMap() {
+        hmillhash.put("1", hmill[1]);
+        hmillhash.put("2", hmill[1]);
+        hmillhash.put("3", hmill[1]);
+        hmillhash.put("4", hmill[2]);
+        hmillhash.put("5", hmill[2]);
+        hmillhash.put("6", hmill[2]);
+        hmillhash.put("7", hmill[3]);
+        hmillhash.put("8", hmill[3]);
+        hmillhash.put("9", hmill[3]);
+        hmillhash.put("10", hmill[4]);
+        hmillhash.put("11", hmill[4]);
+        hmillhash.put("12", hmill[4]);
+        hmillhash.put("13", hmill[5]);
+        hmillhash.put("14", hmill[5]);
+        hmillhash.put("15", hmill[5]);
+        hmillhash.put("16", hmill[6]);
+        hmillhash.put("17", hmill[6]);
+        hmillhash.put("18", hmill[6]);
+        hmillhash.put("19", hmill[7]);
+        hmillhash.put("20", hmill[7]);
+        hmillhash.put("21", hmill[7]);
+        hmillhash.put("22", hmill[8]);
+        hmillhash.put("23", hmill[8]);
+        hmillhash.put("24", hmill[8]);
+    }
+
+    public void VMillStatusHashMap() {
+        vmillhash.put("1", vmill[1]);
+        vmillhash.put("2", vmill[4]);
+        vmillhash.put("3", vmill[8]);
+        vmillhash.put("4", vmill[2]);
+        vmillhash.put("5", vmill[4]);
+        vmillhash.put("6", vmill[7]);
+        vmillhash.put("7", vmill[3]);
+        vmillhash.put("8", vmill[4]);
+        vmillhash.put("9", vmill[6]);
+        vmillhash.put("10", vmill[1]);
+        vmillhash.put("11", vmill[2]);
+        vmillhash.put("12", vmill[3]);
+        vmillhash.put("13", vmill[6]);
+        vmillhash.put("14", vmill[7]);
+        vmillhash.put("15", vmill[8]);
+        vmillhash.put("16", vmill[3]);
+        vmillhash.put("17", vmill[5]);
+        vmillhash.put("18", vmill[6]);
+        vmillhash.put("19", vmill[2]);
+        vmillhash.put("20", vmill[5]);
+        vmillhash.put("21", vmill[7]);
+        vmillhash.put("22", vmill[1]);
+        vmillhash.put("23", vmill[5]);
+        vmillhash.put("24", vmill[8]);
+    }
+
+
     private Boolean checkmill1() {
         if((circ1.getFill().equals(circ2.getFill()))&&(circ1.getFill().equals(circ3.getFill()))) {
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            hmill[1] = true;
         }else if((circ1.getFill().equals(circ10.getFill()))&&(circ1.getFill().equals(circ22.getFill()))){
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            vmill[1] = true;
         }else{
             muehle = false;
         }
@@ -496,9 +1012,11 @@ public class FXMLController implements Initializable {
         if((circ2.getFill().equals(circ1.getFill()))&&(circ2.getFill().equals(circ3.getFill()))) {
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            hmill[1] = true;
         }else if((circ2.getFill().equals(circ5.getFill()))&&(circ2.getFill().equals(circ8.getFill()))){
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            vmill[4] = true;
         }else{
             muehle = false;
         }
@@ -509,9 +1027,11 @@ public class FXMLController implements Initializable {
         if((circ3.getFill().equals(circ1.getFill()))&&(circ3.getFill().equals(circ2.getFill()))) {
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            hmill[1] = true;
         }else if((circ3.getFill().equals(circ15.getFill()))&&(circ3.getFill().equals(circ24.getFill()))){
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            vmill[8] = true;
         }else{
             muehle = false;
         }
@@ -522,9 +1042,11 @@ public class FXMLController implements Initializable {
         if((circ4.getFill().equals(circ5.getFill()))&&(circ4.getFill().equals(circ6.getFill()))) {
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            hmill[2] = true;
         }else if((circ4.getFill().equals(circ11.getFill()))&&(circ4.getFill().equals(circ19.getFill()))){
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            vmill[2] = true;
         }else{
             muehle = false;
         }
@@ -535,9 +1057,11 @@ public class FXMLController implements Initializable {
         if((circ5.getFill().equals(circ4.getFill()))&&(circ5.getFill().equals(circ6.getFill()))) {
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            hmill[2] = true;
         }else if((circ5.getFill().equals(circ2.getFill()))&&(circ5.getFill().equals(circ8.getFill()))){
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            vmill[4] = true;
         }else{
             muehle = false;
         }
@@ -548,9 +1072,11 @@ public class FXMLController implements Initializable {
         if((circ6.getFill().equals(circ4.getFill()))&&(circ6.getFill().equals(circ5.getFill()))) {
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            hmill[2] = true;
         }else if((circ6.getFill().equals(circ14.getFill()))&&(circ6.getFill().equals(circ21.getFill()))){
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            vmill[7] = true;
         }else{
             muehle = false;
         }
@@ -561,9 +1087,11 @@ public class FXMLController implements Initializable {
         if((circ7.getFill().equals(circ8.getFill()))&&(circ7.getFill().equals(circ9.getFill()))) {
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            hmill[3] = true;
         }else if((circ7.getFill().equals(circ12.getFill()))&&(circ7.getFill().equals(circ16.getFill()))){
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            vmill[3] = true;
         }else{
             muehle = false;
         }
@@ -574,9 +1102,11 @@ public class FXMLController implements Initializable {
         if((circ8.getFill().equals(circ7.getFill()))&&(circ8.getFill().equals(circ9.getFill()))) {
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            hmill[3] = true;
         }else if((circ8.getFill().equals(circ2.getFill()))&&(circ8.getFill().equals(circ5.getFill()))){
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            vmill[4] = true;
         }else{
             muehle = false;
         }
@@ -587,9 +1117,11 @@ public class FXMLController implements Initializable {
         if((circ9.getFill().equals(circ7.getFill()))&&(circ9.getFill().equals(circ8.getFill()))) {
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            hmill[3] = true;
         }else if((circ9.getFill().equals(circ13.getFill()))&&(circ9.getFill().equals(circ18.getFill()))){
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            vmill[6] = true;
         }else{
             muehle = false;
         }
@@ -600,9 +1132,11 @@ public class FXMLController implements Initializable {
         if((circ10.getFill().equals(circ11.getFill()))&&(circ10.getFill().equals(circ12.getFill()))) {
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            hmill[4] = true;
         }else if((circ10.getFill().equals(circ1.getFill()))&&(circ10.getFill().equals(circ22.getFill()))){
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            vmill[1] = true;
         }else{
             muehle = false;
         }
@@ -613,9 +1147,11 @@ public class FXMLController implements Initializable {
         if((circ11.getFill().equals(circ10.getFill()))&&(circ11.getFill().equals(circ12.getFill()))) {
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            hmill[4] = true;
         }else if((circ11.getFill().equals(circ4.getFill()))&&(circ11.getFill().equals(circ19.getFill()))){
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            vmill[2] = true;
         }else{
             muehle = false;
         }
@@ -626,9 +1162,11 @@ public class FXMLController implements Initializable {
         if((circ12.getFill().equals(circ10.getFill()))&&(circ12.getFill().equals(circ11.getFill()))) {
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            hmill[4] = true;
         }else if((circ12.getFill().equals(circ7.getFill()))&&(circ12.getFill().equals(circ16.getFill()))){
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            vmill[3] = true; 
         }else{
             muehle = false;
         }
@@ -639,9 +1177,11 @@ public class FXMLController implements Initializable {
         if((circ13.getFill().equals(circ14.getFill()))&&(circ13.getFill().equals(circ15.getFill()))) {
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            hmill[5] = true;
         }else if((circ13.getFill().equals(circ9.getFill()))&&(circ13.getFill().equals(circ18.getFill()))){
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            vmill[6] = true;
         }else{
             muehle = false;
         }
@@ -652,9 +1192,11 @@ public class FXMLController implements Initializable {
         if((circ14.getFill().equals(circ13.getFill()))&&(circ14.getFill().equals(circ15.getFill()))) {
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            hmill[5] = true;
         }else if((circ14.getFill().equals(circ6.getFill()))&&(circ14.getFill().equals(circ21.getFill()))){
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            vmill[7] = true;
         }else{
             muehle = false;
         }
@@ -665,9 +1207,11 @@ public class FXMLController implements Initializable {
         if((circ15.getFill().equals(circ13.getFill()))&&(circ15.getFill().equals(circ14.getFill()))) {
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            hmill[5] = true;
         }else if((circ15.getFill().equals(circ3.getFill()))&&(circ15.getFill().equals(circ24.getFill()))){
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            vmill[8] = true;
         }else{
             muehle = false;
         }
@@ -678,9 +1222,11 @@ public class FXMLController implements Initializable {
         if((circ16.getFill().equals(circ17.getFill()))&&(circ16.getFill().equals(circ18.getFill()))) {
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            hmill[6] = true;
         }else if((circ16.getFill().equals(circ7.getFill()))&&(circ16.getFill().equals(circ12.getFill()))){
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            vmill[3] = true;
         }else{
             muehle = false;
         }
@@ -691,9 +1237,11 @@ public class FXMLController implements Initializable {
         if((circ17.getFill().equals(circ16.getFill()))&&(circ17.getFill().equals(circ18.getFill()))) {
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            hmill[6] = true;
         }else if((circ17.getFill().equals(circ20.getFill()))&&(circ17.getFill().equals(circ23.getFill()))){
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            vmill[5] = true;
         }else{
             muehle = false;
         }
@@ -704,9 +1252,11 @@ public class FXMLController implements Initializable {
         if((circ18.getFill().equals(circ16.getFill()))&&(circ18.getFill().equals(circ17.getFill()))) {
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            hmill[6] = true;
         }else if((circ18.getFill().equals(circ9.getFill()))&&(circ18.getFill().equals(circ13.getFill()))){
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            vmill[6] = true;
         }else{
             muehle = false;
         }
@@ -717,9 +1267,11 @@ public class FXMLController implements Initializable {
         if((circ19.getFill().equals(circ20.getFill()))&&(circ19.getFill().equals(circ21.getFill()))) {
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            hmill[7] = true;
         }else if((circ19.getFill().equals(circ4.getFill()))&&(circ19.getFill().equals(circ11.getFill()))){
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            vmill[2] = true;
         }else{
             muehle = false;
         }
@@ -730,9 +1282,11 @@ public class FXMLController implements Initializable {
         if((circ20.getFill().equals(circ19.getFill()))&&(circ20.getFill().equals(circ21.getFill()))) {
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            hmill[7] = true;
         }else if((circ20.getFill().equals(circ17.getFill()))&&(circ20.getFill().equals(circ23.getFill()))){
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            vmill[5] = true;
         }else{
             muehle = false;
         }
@@ -743,9 +1297,11 @@ public class FXMLController implements Initializable {
         if((circ21.getFill().equals(circ19.getFill()))&&(circ21.getFill().equals(circ20.getFill()))) {
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            hmill[7] = true;
         }else if((circ21.getFill().equals(circ6.getFill()))&&(circ21.getFill().equals(circ14.getFill()))){
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            vmill[7] = true;
         }else{
             muehle = false;
         }
@@ -756,9 +1312,11 @@ public class FXMLController implements Initializable {
         if((circ22.getFill().equals(circ23.getFill()))&&(circ22.getFill().equals(circ24.getFill()))) {
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            hmill[8] = true;
         }else if((circ22.getFill().equals(circ1.getFill()))&&(circ22.getFill().equals(circ10.getFill()))){
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            vmill[1] = true;
         }else{
             muehle = false;
         }
@@ -769,9 +1327,11 @@ public class FXMLController implements Initializable {
         if((circ23.getFill().equals(circ22.getFill()))&&(circ23.getFill().equals(circ24.getFill()))) {
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            hmill[8] = true;
         }else if((circ23.getFill().equals(circ17.getFill()))&&(circ23.getFill().equals(circ20.getFill()))){
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            vmill[5] = true;
         }else{
             muehle = false;
         }
@@ -782,14 +1342,17 @@ public class FXMLController implements Initializable {
         if((circ24.getFill().equals(circ22.getFill()))&&(circ24.getFill().equals(circ23.getFill()))) {
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            hmill[8] = true;
         }else if((circ24.getFill().equals(circ3.getFill()))&&(circ24.getFill().equals(circ15.getFill()))){
             System.out.println("Currentplayer has a mill");
             muehle = true;
+            vmill[8] = true;
         }else{
             muehle = false;
         }
         return muehle;
     }
+
 
 
     
