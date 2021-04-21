@@ -4,6 +4,9 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -41,6 +44,8 @@ public class FXMLController implements Initializable {
     private int counter = 0;
 
     Spielfeld sf = new Spielfeld();
+    Alert alertI = new Alert(AlertType.INFORMATION);
+    Alert alertE = new Alert(AlertType.ERROR);
 
     HashMap<String, Circle> testhash = new HashMap<String, Circle>();
     HashMap<String, Integer> pidhash = new HashMap<String, Integer>();
@@ -196,11 +201,38 @@ public class FXMLController implements Initializable {
     @FXML
     private Pane pae;
 
+    @FXML
+    private Circle circ25;
+
+    @FXML
+    private Label labelcp;
+
+    @FXML
+    private Label lblp1;
+
+    @FXML
+    private Label lblp2;
+
+    @FXML
+    private Label lblp1t;
+
+    @FXML
+    private Label lblp1z;
+
+    @FXML
+    private Label lblp2t;
+
+    @FXML
+    private Label lblp2z;
+
+    @FXML
+    private Label lblzuege;
+
     /* Hier wurde jedes einzelne wichtige Gridbox definiert, ich habe ein test versuch gemacht mit dem Mousevent*/
 
     @FXML
     void manageMouseClicked(MouseEvent event) {
-        
+
         if(counter == 0) {
             setmillfalse();
             setfalse();
@@ -210,8 +242,9 @@ public class FXMLController implements Initializable {
             HHashMap();
             HMillStatusHashMap();
             VMillStatusHashMap();
+            circ25.setFill(Color.valueOf(colorbeige));
         }
-
+        lblzuege.setText("Gesamt Anzahl Züge: " + (Player1.getanzSteine()+Player2.getanzSteine()));
         counter += 1;
 
         System.out.println("Counter: " + counter);
@@ -234,26 +267,37 @@ public class FXMLController implements Initializable {
         System.out.println(pid);
         
         if(currentPlayer.getplayerInstance().equals(remove)) {
-            if((hmillhash.get(pid).equals(false))&&(vmillhash.get(pid).equals(false))) {
-                deleteToken();
-                zugzaehler();
-                muehle=false;
-                removeplayerinstance();
-                changePlayer();
-                reducetoken();
-                System.out.println("Removed opponents token!");
-            }else if(notokens==5) {
-                System.out.println("No available tokens to take, changing Player!");
-                zugzaehler();
-                removeplayerinstance();
-                changePlayer();
+            if(!testhash.get(pid).getFill().equals(Color.valueOf(colortransparent))) {
+                if((hmillhash.get(pid).equals(false))&&(vmillhash.get(pid).equals(false))) {
+                    deleteToken();
+                    zugzaehler();
+                    muehle=false;
+                    removeplayerinstance();
+                    changePlayer();
+                    setcirc25();
+                    setlabelcp();
+                    reducetoken();
+                    System.out.println("Removed opponents token!");
+                }else if(notokens==5) {
+                    System.out.println("No available tokens to take, changing Player!");
+                    notoken();
+                    zugzaehler();
+                    removeplayerinstance();
+                    changePlayer();
+                    setcirc25();
+                    setlabelcp();
+                }else{
+                    System.out.println("You can't remove tokens in a mill!");
+                    cantremove();
+                    System.out.println(hmillhash.get(pid));
+                    System.out.println(vmillhash.get(pid));
+                    notokens += 1;
+                    return;
+                }
             }else{
-                System.out.println("You can't remove tokens in a mill!");
-                System.out.println(hmillhash.get(pid));
-                System.out.println(vmillhash.get(pid));
-                notokens += 1;
                 return;
             }
+            
         }else if(currentPlayer.getplayerInstance().equals(move)) {
             System.out.println("Last pid: " + lastpid);
             if(!pid.equals(lastpid)) {
@@ -266,24 +310,30 @@ public class FXMLController implements Initializable {
                             zugzaehler();
                             removeplayerinstance();
                             changePlayer();
+                            setcirc25();
+                            setlabelcp();
                             System.out.println("player1s amount of tokens " + Player1.getanzSteine());
                             System.out.println("player2s amount of tokens " + Player2.getanzSteine());
                         }else{
                             System.out.println("Setting player instance to remove!");
+                            millalert();
                             setplayerinstanceremove();
                             return;
                         }
                     }else{
                         System.out.println("Token is too far away, you can't jump yet!");
+                        cantjump();
                         exit = false;
                         return;
                     }
                 }else{
                     System.out.println("There is already a token in this field!");
+                    alreadytoken();
                     return;
                 }
             }else{
                 System.out.println("Can't set token on same spot!");
+                samespot();
                 return;
             }
         }else if(currentPlayer.getplayerInstance().equals(jump)) {
@@ -296,19 +346,24 @@ public class FXMLController implements Initializable {
                         zugzaehler();
                         removeplayerinstance();
                         changePlayer();
+                        setcirc25();
+                        setlabelcp();
                         System.out.println("player1s amount of tokens " + Player1.getanzSteine());
                         System.out.println("player2s amount of tokens " + Player2.getanzSteine());
                     }else{
                         System.out.println("Setting player instance to remove!");
+                        millalert();
                         setplayerinstanceremove();
                         return;
                     }
                 }else{
                     System.out.println("There is already a token in this field!");
+                    alreadytoken();
                     return;
                 }
             }else{
                 System.out.println("Can't place token on the same spot!");
+                samespot();
                 return;
             }
         }else{
@@ -321,11 +376,15 @@ public class FXMLController implements Initializable {
                     if(muehle!=true) {
                         zugzaehler();
                         changePlayer();
+                        setcirc25();
+                        setlabelcp();
                     }else{
+                        millalert();
                         return;
                     }
                 }else{
                     System.out.println("There is already a token in this field!");
+                    alreadytoken();
                     return;
                 }
             }else if(currentPlayer.getanzSteine()==3) {
@@ -337,11 +396,13 @@ public class FXMLController implements Initializable {
                     return;
                 }
             }else if(currentPlayer.getanzSteine()<3) {
+                won();
                 if(currentPlayer.getSpielerNummer()==Player1.getSpielerNummer()) {
                     System.out.println("Player 1 has lost the game!");
                 }else{
                     System.out.println("Player 2 has lost the game!");
                 }
+                
             }else{
                 if(!testhash.get(pid).getFill().equals(Color.valueOf(colortransparent))) {
                     lastpid = pid;
@@ -356,6 +417,85 @@ public class FXMLController implements Initializable {
         HMillStatusHashMap();
         VMillStatusHashMap();
 
+    }
+
+    private void millalert() {
+        if(currentPlayer.getSpielerNummer()==1){
+            alertI.setTitle("Spieler 1 hat eine Mühle!");
+            alertI.setHeaderText(null);
+            alertI.setContentText("Sie können nun einen Stein ihres Gegners entfernen!");
+        }else{
+            alertI.setTitle("Spieler 2 hat eine Mühle!");
+            alertI.setHeaderText(null);
+            alertI.setContentText("Sie können nun einen Stein ihres Gegners entfernen!");
+        }
+        alertI.showAndWait();
+    }
+
+    private void cantremove() {
+        alertE.setTitle("Ungültiger Zug!");
+        alertE.setHeaderText(null);
+        alertE.setContentText("Stein in einer Mühle können nicht entfernt weren!");
+
+        alertI.showAndWait();
+    }
+
+    private void notoken() {
+        alertI.setTitle("Nicht möglich!");
+        alertI.setHeaderText(null);
+        alertI.setContentText("Es können keine Steine entfernt werden, Spieler wird gewechselt!");
+
+        alertI.showAndWait();
+    }
+
+    private void cantjump() {
+        alertE.setTitle("Ungültiger Zug!");
+        alertE.setHeaderText(null);
+        alertE.setContentText("Springen ist momentan nicht möglich!");
+
+        alertI.showAndWait();
+    }
+
+    private void alreadytoken() {
+        alertE.setTitle("Ungültiger Zug!");
+        alertE.setHeaderText(null);
+        alertE.setContentText("Da befindet sich schon ein Stein in diesem Feld!");
+
+        alertI.showAndWait();
+    }
+
+    private void samespot() {
+        alertE.setTitle("Ungültiger Zug!");
+        alertE.setHeaderText(null);
+        alertE.setContentText("Kann Stein nicht an gleicher stelle setzen!");
+
+        alertI.showAndWait();
+    }
+
+    private void won() {
+        if(Player1.getanzSteine()<3) {
+            alertI.setTitle("WIN!");
+            alertI.setHeaderText(null);
+            alertI.setContentText("Gratulation! Spieler 2 hat gewonnen!");
+        }else{
+            alertI.setTitle("WIN!");
+            alertI.setHeaderText(null);
+            alertI.setContentText("Gratulation! Spieler 1 hat gewonnen!");
+        }
+        alertI.showAndWait();
+    }
+
+
+    private void setlabelcp() {
+        labelcp.setText("Atueller Spieler ist: " + currentPlayer.getSpielerNummer());
+    }
+
+    private void setcirc25() {
+        if(currentPlayer.getSpielerNummer()==1){
+            circ25.setFill(Color.valueOf(colorbeige));
+        }else{
+            circ25.setFill(Color.valueOf(colorgrey));
+        }
     }
 
     // method, which sets the playerinstance of currentplayer "removetoken".
@@ -507,16 +647,20 @@ public class FXMLController implements Initializable {
     private void reducetoken() {
         if(currentPlayer.getSpielerNummer()==Player1.getSpielerNummer()) {
             Player1.setanzSteine(Player1.getanzSteine()-1);
+            lblp1t.setText("Anzahl Steine: " + Player1.getanzSteine());
         }else{
             Player2.setanzSteine(Player2.getanzSteine()-1);
+            lblp2t.setText("Anzahl Steine: " + Player2.getanzSteine());
         }
     }
 
     private void increasetoken() {
         if(currentPlayer.getSpielerNummer()==Player1.getSpielerNummer()) {
             Player1.setanzSteine(Player1.getanzSteine()+1);
+            lblp1t.setText("Anzahl Steine: " + Player1.getanzSteine());
         }else{
             Player2.setanzSteine(Player2.getanzSteine()+1);
+            lblp2t.setText("Anzahl Steine: " + Player2.getanzSteine());
         }
     }
     
@@ -525,6 +669,14 @@ public class FXMLController implements Initializable {
         currentPlayer = new Spieler(1, 0, 0, " ");
         Player1 = new Spieler(1, 0, 0, " ");
         Player2 = new Spieler(2, 0, 0, " ");
+        labelcp.setText("Aktueller spieler ist: ");
+        lblp1.setText("Spieler 1");
+        lblp1t.setText("Anzahl Steine: ");
+        lblp1z.setText("Anzahl Züge: ");
+        lblp2.setText("Spieler 2");
+        lblp2t.setText("Anzahl Steine: ");
+        lblp2z.setText("anzahl Züge: ");
+        lblzuege.setText("Gesamt anzahl Züge: ");
     }
 
     // counts the amount of turns of a player
@@ -532,10 +684,12 @@ public class FXMLController implements Initializable {
         if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
             Player1.setanzZuege(Player1.getanzZuege() + 1);
             System.out.println("Player1 anzahl Züge: " + Player1.getanzZuege());
+            lblp1z.setText("Anzahl Züge: " + Player1.getanzZuege());
             return Player1.getanzZuege();
         } else {
             Player2.setanzZuege(Player2.getanzZuege() + 1);
             System.out.println("Player2 anzahl Züge: " + Player2.getanzZuege());
+            lblp2z.setText("Anzahl Züge: " + Player2.getanzZuege());
             return Player2.getanzZuege();
         }
     }

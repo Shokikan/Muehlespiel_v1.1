@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -7,10 +8,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLController">
    <children>
-      <Pane layoutX="150.0" layoutY="50.0" prefHeight="700.0" prefWidth="700.0">
+      <Pane id="25" fx:id="25" layoutX="150.0" layoutY="100.0" prefHeight="700.0" prefWidth="700.0">
          <children>
             <Line endX="600.0" layoutX="50.0" layoutY="50.0" />
             <Line endY="600.0" layoutX="50.0" layoutY="50.0" />
@@ -172,5 +174,50 @@
             </GridPane>
          </children>
       </Pane>
+      <Pane layoutX="200.0" prefHeight="100.0" prefWidth="600.0">
+         <children>
+            <Circle fx:id="circ25" fill="#1f93ff00" layoutX="550.0" layoutY="50.0" radius="50.0" stroke="#000000c9" strokeType="INSIDE" />
+            <Label fx:id="labelcp" layoutX="41.0" layoutY="42.0" text="Label">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Label fx:id="lblp1" layoutX="900.0" layoutY="150.0" text="Label">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblp1t" layoutX="900.0" layoutY="200.0" text="Label">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblp1z" layoutX="900.0" layoutY="250.0" text="Label">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblp2" layoutX="900.0" layoutY="350.0" text="Label">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblp2t" layoutX="900.0" layoutY="400.0" text="Label">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblp2z" layoutX="900.0" layoutY="450.0" text="Label">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblzuege" layoutX="900.0" layoutY="600.0" text="Label">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
