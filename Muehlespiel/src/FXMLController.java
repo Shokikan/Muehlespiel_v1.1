@@ -46,6 +46,8 @@ public class FXMLController implements Initializable {
     HashMap<String, Integer> pidhash = new HashMap<String, Integer>();
     HashMap<String, Boolean> hmillhash = new HashMap<String, Boolean>();
     HashMap<String, Boolean> vmillhash = new HashMap<String, Boolean>();
+    HashMap<Integer, String> Hhash = new HashMap<Integer, String>();
+    HashMap<Integer, String> Vhash = new HashMap<Integer, String>();
 
     @FXML
     private Pane box1;
@@ -204,6 +206,8 @@ public class FXMLController implements Initializable {
             setfalse();
             TestHashMap();
             pidHashMap();
+            VHashMap();
+            HHashMap();
             HMillStatusHashMap();
             VMillStatusHashMap();
         }
@@ -251,6 +255,7 @@ public class FXMLController implements Initializable {
                 return;
             }
         }else if(currentPlayer.getplayerInstance().equals(move)) {
+            System.out.println("Last pid: " + lastpid);
             if(!pid.equals(lastpid)) {
                 if(testhash.get(pid).getFill().equals(Color.valueOf(colortransparent))) {
                     undomillswitch();
@@ -348,7 +353,8 @@ public class FXMLController implements Initializable {
                 
             }
         }
-        
+        HMillStatusHashMap();
+        VMillStatusHashMap();
 
     }
 
@@ -414,45 +420,49 @@ public class FXMLController implements Initializable {
     }
 
     private void hundomill() {
-        for(int i = 0; i < 9; i++){
-            if(hmillhash.get(lastpid).equals(hmill[i])) {
-                hmill[i] = false;
-                System.out.println("Undo mill at: " + i + " horizontal.");
-            }else{
-                return;
+        int x = 1;
+        for(int i = 1; i < 9; i++){
+            for(int j = 1; j < 4; j++) {
+                if(Hhash.get(x).equals(lastpid)) {
+                    hmill[i] = false;
+                    System.out.println("Undo mill at: " + i + " horizontal.");
+                }else{
+                    System.out.println("Undo mill failed!");
+                }
+                x++;
             }
         }
-        return;
     }
 
     private void vundomill() {        
-        for(int i = 0; i < 9; i++){
-            if(vmillhash.get(lastpid).equals(vmill[i])) {
-                vmill[i] = false;
-                System.out.println("Undo mill at: " + i + " vertical.");
-            }else{
-                return;
+        int x = 1;
+        for(int i = 1; i < 9; i++){
+            for(int j = 1; j < 4; j++) {
+                if(Vhash.get(x).equals(lastpid)) {
+                    vmill[i] = false;
+                    System.out.println("Undo mill at: " + i + " vertical.");
+                }else{
+                    System.out.println("Undo mill failed!");
+                }
+                x++;
             }
         }
-        return;
     }
 
     private void hundo(){
         if(hmillhash.get(lastpid).equals(true)) {
             hundomill();
         }else{
-            return;
+            System.out.println("Failed!");
         }
-        return;
     }
 
     private void vundo(){
         if(vmillhash.get(lastpid).equals(true)) {
             vundomill();
         }else{
-            return;
+            System.out.println("Failed!");
         }
-        return;
     }
 
     private void undomilljump() {
@@ -973,6 +983,59 @@ public class FXMLController implements Initializable {
 
 
         }
+    }
+    public void HHashMap() {
+        Hhash.put(1, "1");
+        Hhash.put(2, "2");
+        Hhash.put(3, "3");
+        Hhash.put(4, "4");
+        Hhash.put(5, "5");
+        Hhash.put(6, "6");
+        Hhash.put(7, "7");
+        Hhash.put(8, "8");
+        Hhash.put(9, "9");
+        Hhash.put(10, "10");
+        Hhash.put(11, "11");
+        Hhash.put(12, "12");
+        Hhash.put(13, "13");
+        Hhash.put(14, "14");
+        Hhash.put(15, "15");
+        Hhash.put(16, "16");
+        Hhash.put(17, "17");
+        Hhash.put(18, "18");
+        Hhash.put(19, "19");
+        Hhash.put(20, "20");
+        Hhash.put(21, "21");
+        Hhash.put(22, "22");
+        Hhash.put(23, "23");
+        Hhash.put(24, "24");
+    }
+
+    public void VHashMap() {
+        Vhash.put(1, "1");
+        Vhash.put(2, "10");
+        Vhash.put(3, "22");
+        Vhash.put(4, "4");
+        Vhash.put(5, "11");
+        Vhash.put(6, "19");
+        Vhash.put(7, "7");
+        Vhash.put(8, "12");
+        Vhash.put(9, "16");
+        Vhash.put(10, "2");
+        Vhash.put(11, "5");
+        Vhash.put(12, "8");
+        Vhash.put(13, "17");
+        Vhash.put(14, "20");
+        Vhash.put(15, "23");
+        Vhash.put(16, "9");
+        Vhash.put(17, "13");
+        Vhash.put(18, "18");
+        Vhash.put(19, "6");
+        Vhash.put(20, "14");
+        Vhash.put(21, "21");
+        Vhash.put(22, "3");
+        Vhash.put(23, "15");
+        Vhash.put(24, "24");
     }
 
     public void pidHashMap() {
