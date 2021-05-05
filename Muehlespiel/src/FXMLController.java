@@ -4,9 +4,7 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -14,19 +12,17 @@ import javafx.scene.shape.Circle;
 
 public class FXMLController implements Initializable {
 
-    HashMap<Pane, Integer> pmap = new HashMap<Pane, Integer>();
-
     @FXML
     private ResourceBundle resources;
 
     @FXML
     private URL location;
     
+    // Sämtliche Variablen werden im voraus initialisiert
     @FXML
     private Spieler currentPlayer;
     private Spieler Player1;
     private Spieler Player2;
-    private Boolean[] paneStatus = new Boolean[25];
     private Boolean[] hmill = new Boolean[9];
     private Boolean[] vmill = new Boolean[9];
     private String pid;
@@ -43,210 +39,75 @@ public class FXMLController implements Initializable {
     private int notokens = 0;
     private int counter = 0;
 
-    Spielfeld sf = new Spielfeld();
-    Alert alertI = new Alert(AlertType.INFORMATION);
-    Alert alertE = new Alert(AlertType.ERROR);
+    FXMLAlerts al = new FXMLAlerts();
+    HashMaps Hm = new HashMaps();
+    
 
+    // Hier werden einige Hashmaps initialisiert
     HashMap<String, Circle> testhash = new HashMap<String, Circle>();
-    HashMap<String, Integer> pidhash = new HashMap<String, Integer>();
     HashMap<String, Boolean> hmillhash = new HashMap<String, Boolean>();
     HashMap<String, Boolean> vmillhash = new HashMap<String, Boolean>();
-    HashMap<Integer, String> Hhash = new HashMap<Integer, String>();
-    HashMap<Integer, String> Vhash = new HashMap<Integer, String>();
+
+    // Alle Kreise haben eine eigene ID, die ID ist wichtig für überprüfungne der Mühlen
+    @FXML private Circle circ1;
+    @FXML private Circle circ2;
+    @FXML private Circle circ3;
+    @FXML private Circle circ4;
+    @FXML private Circle circ5;
+    @FXML private Circle circ6;
+    @FXML private Circle circ7;
+    @FXML private Circle circ8;
+    @FXML private Circle circ9;
+    @FXML private Circle circ10;
+    @FXML private Circle circ11;
+    @FXML private Circle circ12;
+    @FXML private Circle circ13;
+    @FXML private Circle circ14;
+    @FXML private Circle circ15;
+    @FXML private Circle circ16;
+    @FXML private Circle circ17;
+    @FXML private Circle circ18;
+    @FXML private Circle circ19;
+    @FXML private Circle circ20;
+    @FXML private Circle circ21;
+    @FXML private Circle circ22;
+    @FXML private Circle circ23;
+    @FXML private Circle circ24;
+    @FXML private Circle circ25;
 
     @FXML
-    private Pane box1;
+    private Pane pae; // Dieser Pane dient als Hilfe für die Id des geklickten Feldes
 
-    @FXML
-    private Circle circ1;
+    // Hier werden die Labels initialisiert 
+    @FXML private Label labelcp;
+    @FXML private Label lblp1;
+    @FXML private Label lblp2;
+    @FXML private Label lblp1t;
+    @FXML private Label lblp1z;
+    @FXML private Label lblp2t;
+    @FXML private Label lblp2z;
+    @FXML private Label lblzuege;
 
-    @FXML
-    private Pane box2;
-
-    @FXML
-    private Circle circ2;
-
-    @FXML
-    private Pane box3;
-
-    @FXML
-    private Circle circ3;
-
-    @FXML
-    private Pane box4;
-
-    @FXML
-    private Circle circ4;
-
-    @FXML
-    private Pane box5;
-
-    @FXML
-    private Circle circ5;
-
-    @FXML
-    private Pane box6;
-
-    @FXML
-    private Circle circ6;
-
-    @FXML
-    private Pane box7;
-
-    @FXML
-    private Circle circ7;
-
-    @FXML
-    private Pane box8;
-
-    @FXML
-    private Circle circ8;
-
-    @FXML
-    private Pane box9;
-
-    @FXML
-    private Circle circ9;
-
-    @FXML
-    private Pane box10;
-
-    @FXML
-    private Circle circ10;
-
-    @FXML
-    private Pane box11;
-
-    @FXML
-    private Circle circ11;
-
-    @FXML
-    private Pane box12;
-
-    @FXML
-    private Circle circ12;
-
-    @FXML
-    private Pane box13;
-
-    @FXML
-    private Circle circ13;
-
-    @FXML
-    private Pane box14;
-
-    @FXML
-    private Circle circ14;
-
-    @FXML
-    private Pane box15;
-
-    @FXML
-    private Circle circ15;
-
-    @FXML
-    private Pane box16;
-
-    @FXML
-    private Circle circ16;
-
-    @FXML
-    private Pane box17;
-
-    @FXML
-    private Circle circ17;
-
-    @FXML
-    private Pane box18;
-
-    @FXML
-    private Circle circ18;
-
-    @FXML
-    private Pane box19;
-
-    @FXML
-    private Circle circ19;
-
-    @FXML
-    private Pane box20;
-
-    @FXML
-    private Circle circ20;
-
-    @FXML
-    private Pane box21;
-
-    @FXML
-    private Circle circ21;
-
-    @FXML
-    private Pane box22;
-
-    @FXML
-    private Circle circ22;
-
-    @FXML
-    private Pane box23;
-
-    @FXML
-    private Circle circ23;
-
-    @FXML
-    private Pane box24;
-
-    @FXML
-    private Circle circ24;
-
-    @FXML
-    private Pane pae;
-
-    @FXML
-    private Circle circ25;
-
-    @FXML
-    private Label labelcp;
-
-    @FXML
-    private Label lblp1;
-
-    @FXML
-    private Label lblp2;
-
-    @FXML
-    private Label lblp1t;
-
-    @FXML
-    private Label lblp1z;
-
-    @FXML
-    private Label lblp2t;
-
-    @FXML
-    private Label lblp2z;
-
-    @FXML
-    private Label lblzuege;
-
-    /* Hier wurde jedes einzelne wichtige Gridbox definiert, ich habe ein test versuch gemacht mit dem Mousevent*/
+    
+    // Mit einem Mausklick werden sämtliche Methoden überprüft.
 
     @FXML
     void manageMouseClicked(MouseEvent event) {
 
+        // Hier werden alle hashmaps initialisiert und noch default Werte angegeben.
         if(counter == 0) {
             setmillfalse();
-            setfalse();
             TestHashMap();
-            pidHashMap();
-            VHashMap();
-            HHashMap();
+            Hm.VHashMap();
+            Hm.HHashMap();
             HMillStatusHashMap();
             VMillStatusHashMap();
             circ25.setFill(Color.valueOf(colorbeige));
         }
-        lblzuege.setText("Gesamt Anzahl Züge: " + (Player1.getanzSteine()+Player2.getanzSteine()));
-        counter += 1;
 
+        counter += 1; // Counter wird benutzt um die Hashmaps einmal zu initialisieren.
+
+        /*  Dieser Teil wurde benutzt um die Verarbeitung einiger Daten zu überprüfen.
         System.out.println("Counter: " + counter);
         System.out.println("Who is current player: " + currentPlayer.getSpielerNummer());
         System.out.println("Player1 amount of tokens: " + Player1.getanzSteine());
@@ -261,14 +122,19 @@ public class FXMLController implements Initializable {
             System.out.print(hmill[n] + " ");
         }
         System.out.println();
+        
+        Dieser Teil wurde benutzt zur Überprüfung wo eine Mühle ist und wo nicht.
+        */
 
+        // Die Variable pid erhält die ID des feldes, dies ist sehr wichtig für die Überprüfungen des Feldes.
         pae = (Pane) event.getSource();
         pid = pae.getId();
         System.out.println(pid);
         
-        if(currentPlayer.getplayerInstance().equals(remove)) {
-            if(!testhash.get(pid).getFill().equals(Color.valueOf(colortransparent))) {
-                if((hmillhash.get(pid).equals(false))&&(vmillhash.get(pid).equals(false))) {
+
+        if(currentPlayer.getplayerInstance().equals(remove)) { // Es wird überprüft ob der Status des Spielers remove ist, dass heisst ob er ein Stein entfernen kann. In diesem Abschnitt wird der Spieler dem Gegener einen Stein wegnehmen können.
+            if(!testhash.get(pid).getFill().equals(Color.valueOf(colortransparent))) { // Überprüfung ob das Feld kein Stein enthält
+                if((hmillhash.get(pid).equals(false))&&(vmillhash.get(pid).equals(false))) { // Überprüfung ob der Stein in diesem Feld sich in keine Mühle(vertikal oder horizontal) befinden 
                     deleteToken();
                     zugzaehler();
                     muehle=false;
@@ -278,17 +144,17 @@ public class FXMLController implements Initializable {
                     setlabelcp();
                     reducetoken();
                     System.out.println("Removed opponents token!");
-                }else if(notokens==5) {
+                }else if(notokens==5) { // Falls kein Stein entfernt werden konnte nach fünf Versuchen wird der Spieler gewechselt
                     System.out.println("No available tokens to take, changing Player!");
-                    notoken();
+                    al.notoken();
                     zugzaehler();
                     removeplayerinstance();
                     changePlayer();
                     setcirc25();
                     setlabelcp();
-                }else{
+                }else{ // Dies tritt ein Wenn der Spieler versucht einen Stein in einer Mühle zu entfernen. Es wird noch ein Alert ausgegeben und die Variable notokens wird um 1 erhöht.
                     System.out.println("You can't remove tokens in a mill!");
-                    cantremove();
+                    al.cantremove();
                     System.out.println(hmillhash.get(pid));
                     System.out.println(vmillhash.get(pid));
                     notokens += 1;
@@ -298,59 +164,55 @@ public class FXMLController implements Initializable {
                 return;
             }
             
-        }else if(currentPlayer.getplayerInstance().equals(move)) {
+        }else if(currentPlayer.getplayerInstance().equals(move)) { // Hier wir überprüft ob der Spieler die Instanz move hat. Dies ist die Zugphase.
             System.out.println("Last pid: " + lastpid);
-            if(!pid.equals(lastpid)) {
-                if(testhash.get(pid).getFill().equals(Color.valueOf(colortransparent))) {
+            if(!pid.equals(lastpid)) { // Es wird überprüft ob es bei diesem Zug um den gleichen Spielfeld handelt.
+                if(testhash.get(pid).getFill().equals(Color.valueOf(colortransparent))) { // Es wird überprüft ob ein Stein im Spielfeld ist.
                     undomillswitch();
-                    if(exit.equals(false)){
+                    if(exit.equals(false)){ // Überprüfung ob dieser Zug gültig ist.
                         settoken();
                         checkpane();
-                        if(muehle!=true) {
+                        if(muehle!=true) { // Ein Check ob eine Mühle entstanden ist bei diesem Zug.
                             zugzaehler();
                             removeplayerinstance();
                             changePlayer();
                             setcirc25();
                             setlabelcp();
-                            System.out.println("player1s amount of tokens " + Player1.getanzSteine());
-                            System.out.println("player2s amount of tokens " + Player2.getanzSteine());
                         }else{
-                            System.out.println("Setting player instance to remove!");
+                            System.out.println("Setting player instance to remove!"); // Wenn eine Mühle entstanden ist wird dem Spieler die Insanz remove gegeben
                             millalert();
                             setplayerinstanceremove();
                             return;
                         }
                     }else{
                         System.out.println("Token is too far away, you can't jump yet!");
-                        cantjump();
+                        al.cantjump();
                         exit = false;
                         return;
                     }
                 }else{
                     System.out.println("There is already a token in this field!");
-                    alreadytoken();
+                    al.alreadytoken();
                     return;
                 }
             }else{
                 System.out.println("Can't set token on same spot!");
-                samespot();
+                al.samespot();
                 return;
             }
-        }else if(currentPlayer.getplayerInstance().equals(jump)) {
-            if(!pid.equals(lastpid)) {
-                if(testhash.get(pid).getFill().equals(Color.valueOf(colortransparent))) {
+        }else if(currentPlayer.getplayerInstance().equals(jump)) { // Überprüfung ob der Spieler die Instanz jump hat. Dies ist die Sprungphase.
+            if(!pid.equals(lastpid)) { // Hier auch wieder ob das Feld die gleiche ist wie das letzte Feld
+                if(testhash.get(pid).getFill().equals(Color.valueOf(colortransparent))) { // Überprüfung ob das Feld kein Stein enthält
                     undomilljump();
                     settoken();        
                     checkpane();
-                    if(muehle!=true) {
+                    if(muehle!=true) { // Überprüfung ob eine Mühle entstanden ist.
                         zugzaehler();
                         removeplayerinstance();
                         changePlayer();
                         setcirc25();
                         setlabelcp();
-                        System.out.println("player1s amount of tokens " + Player1.getanzSteine());
-                        System.out.println("player2s amount of tokens " + Player2.getanzSteine());
-                    }else{
+                    }else{ // Dies tritt ein wenn eine Mühle entstanden ist.
                         System.out.println("Setting player instance to remove!");
                         millalert();
                         setplayerinstanceremove();
@@ -358,36 +220,36 @@ public class FXMLController implements Initializable {
                     }
                 }else{
                     System.out.println("There is already a token in this field!");
-                    alreadytoken();
+                    al.alreadytoken();
                     return;
                 }
             }else{
                 System.out.println("Can't place token on the same spot!");
-                samespot();
+                al.samespot();
                 return;
             }
         }else{
-            if(currentPlayer.getanzZuege()<9) {
-                if(testhash.get(pid).getFill().equals(Color.valueOf(colortransparent))) {
+            if(currentPlayer.getanzZuege()<9) { // Überprüfung ob der Spieler weniger als 9 Züge gemacht hat. Dies ist die Setztphase
+                if(testhash.get(pid).getFill().equals(Color.valueOf(colortransparent))) { // Hier auch wieder Überprüfung ob das Feld kein Stein enthält
                     settoken();
                     checkpane();
                     setplayerinstanceremove();
                     increasetoken();
-                    if(muehle!=true) {
+                    if(muehle!=true) { // Überprüfung ob keine Mühle entstanden ist.
                         zugzaehler();
                         changePlayer();
                         setcirc25();
                         setlabelcp();
-                    }else{
+                    }else{ // Wenn keine Mühle entstanden ist wird dies durch geführt.
                         millalert();
                         return;
                     }
                 }else{
                     System.out.println("There is already a token in this field!");
-                    alreadytoken();
+                    al.alreadytoken();
                     return;
                 }
-            }else if(currentPlayer.getanzSteine()==3) {
+            }else if(currentPlayer.getanzSteine()==3) { // Wenn der Spieler nur noch 3 Steine hat, wird dieser in die Sprungphase versetzt.
                 if(!testhash.get(pid).getFill().equals(Color.valueOf(colortransparent))) {
                     lastpid = pid;
                     deleteToken3();
@@ -395,7 +257,7 @@ public class FXMLController implements Initializable {
                 }else{
                     return;
                 }
-            }else if(currentPlayer.getanzSteine()<3) {
+            }else if(currentPlayer.getanzSteine()<3) { // Wenn der Spieler weniger wie 3 Steine hat, hat der andere Spieler gewonnen. Es taucht ein Alert auf, dass der andere Spieler gewonnen hat.
                 won();
                 if(currentPlayer.getSpielerNummer()==Player1.getSpielerNummer()) {
                     System.out.println("Player 1 has lost the game!");
@@ -404,7 +266,7 @@ public class FXMLController implements Initializable {
                 }
                 
             }else{
-                if(!testhash.get(pid).getFill().equals(Color.valueOf(colortransparent))) {
+                if(!testhash.get(pid).getFill().equals(Color.valueOf(colortransparent))) { // Wenn keines der Verzweigungen übereinstimmt kommen wir hier in die Zugphase. Hier wird der Stein den man bewegen will entfernt um es beim nächsten Click wieder setzten.
                     lastpid = pid;
                     deleteToken2();
                     System.out.println("Current player instance is: " + currentPlayer.getplayerInstance());
@@ -416,80 +278,33 @@ public class FXMLController implements Initializable {
         }
         HMillStatusHashMap();
         VMillStatusHashMap();
-
+        lblzuege.setText("Gesamt Anzahl Züge: " + (Player1.getanzZuege()+Player2.getanzZuege())); // Hier werden die GesamtanzahlZüge berechnet und wiedergegen als ein Label in der Gui
     }
 
-    private void millalert() {
-        if(currentPlayer.getSpielerNummer()==1){
-            alertI.setTitle("Spieler 1 hat eine Mühle!");
-            alertI.setHeaderText(null);
-            alertI.setContentText("Sie können nun einen Stein ihres Gegners entfernen!");
-        }else{
-            alertI.setTitle("Spieler 2 hat eine Mühle!");
-            alertI.setHeaderText(null);
-            alertI.setContentText("Sie können nun einen Stein ihres Gegners entfernen!");
-        }
-        alertI.showAndWait();
-    }
-
-    private void cantremove() {
-        alertE.setTitle("Ungültiger Zug!");
-        alertE.setHeaderText(null);
-        alertE.setContentText("Stein in einer Mühle können nicht entfernt weren!");
-
-        alertI.showAndWait();
-    }
-
-    private void notoken() {
-        alertI.setTitle("Nicht möglich!");
-        alertI.setHeaderText(null);
-        alertI.setContentText("Es können keine Steine entfernt werden, Spieler wird gewechselt!");
-
-        alertI.showAndWait();
-    }
-
-    private void cantjump() {
-        alertE.setTitle("Ungültiger Zug!");
-        alertE.setHeaderText(null);
-        alertE.setContentText("Springen ist momentan nicht möglich!");
-
-        alertI.showAndWait();
-    }
-
-    private void alreadytoken() {
-        alertE.setTitle("Ungültiger Zug!");
-        alertE.setHeaderText(null);
-        alertE.setContentText("Da befindet sich schon ein Stein in diesem Feld!");
-
-        alertI.showAndWait();
-    }
-
-    private void samespot() {
-        alertE.setTitle("Ungültiger Zug!");
-        alertE.setHeaderText(null);
-        alertE.setContentText("Kann Stein nicht an gleicher stelle setzen!");
-
-        alertI.showAndWait();
-    }
-
-    private void won() {
-        if(Player1.getanzSteine()<3) {
-            alertI.setTitle("WIN!");
-            alertI.setHeaderText(null);
-            alertI.setContentText("Gratulation! Spieler 2 hat gewonnen!");
-        }else{
-            alertI.setTitle("WIN!");
-            alertI.setHeaderText(null);
-            alertI.setContentText("Gratulation! Spieler 1 hat gewonnen!");
-        }
-        alertI.showAndWait();
-    }
-
-
+    // In der Gui Zeigt dieses Label an welcher Spieler am Zug ist.
     private void setlabelcp() {
         labelcp.setText("Atueller Spieler ist: " + currentPlayer.getSpielerNummer());
     }
 
+    // Diese Methode überprüft welcher Spieler am Zug ist und wird dem entsprechend den Alert Ausgeben
+    private void millalert() {
+        if(currentPlayer.getSpielerNummer()==1){
+            al.p1millalert();
+        }else{
+            al.p2millalert();
+        }
+    }
+
+    // Diese Methode macht das gleiche wie die letzte Methode, es überprüft welcher Spieler dran ist und wird dem entsprechen den Alert Ausgeben.
+    private void won() {
+        if(Player1.getanzSteine()<3) {
+            al.p1won();
+        }else{
+            al.p2won();
+        }
+    }
+
+    // Bei dieser Methode handelt es sich um den Circle ganz oben in der GUI, neben dem Label mit dem aktuellen Spieler zeigt es die Farbe des aktuellen Spielers an.
     private void setcirc25() {
         if(currentPlayer.getSpielerNummer()==1){
             circ25.setFill(Color.valueOf(colorbeige));
@@ -498,7 +313,7 @@ public class FXMLController implements Initializable {
         }
     }
 
-    // method, which sets the playerinstance of currentplayer "removetoken".
+    // Diese Methode setzt die Instanz des Spielers auf remove, damit die Removephase durchgeführt werden kann.
     private void setplayerinstanceremove() {
         if(muehle==true) {
             currentPlayer.setplayerInstance("removetoken");
@@ -506,17 +321,23 @@ public class FXMLController implements Initializable {
         }
     }
 
+    // Diese Methode setzt den Spielerinstanz auf move
     private void setplayerinstancemove() {
         currentPlayer.setplayerInstance(move);
     }
 
+    // Diese Methode setzt den Spielerinstanz auf jump
     private void setplayerinstancejump() {
         currentPlayer.setplayerInstance(jump);
     }
 
-    /* method, which cheks if the the current players token isn't the same as the opponents ones. This method will be 
-    again if the player tries to remove his own tokens or if the player clicks on a field without a token. */
-    private void deleteToken() {
+    /*  Dies ist die erste deleteToken Methode. Sie wird benutzt für das Entfernen der Steine des Gegners anch einer Mühle.
+        Als erstes wird Überprüft ob der Stein den man wegnehmen will nicht die selbe Farbe hat
+        wie den Stein den man setzen möchte. Ist dies nicht der Fall wird der Kreis transparent gemacht.
+        Was man nicht kann, ist den eigenen Stein Entfernen, ein Stein von einer Mühle entfenen oder kein Stein entfernen 
+        ausser es gibt nichts zu entfernen
+    */
+    public void deleteToken() {
         if(!testhash.get(pid).getFill().equals(Color.valueOf(fillcolor))) {    
             testhash.get(pid).setFill(Color.valueOf(colortransparent));
         }else if(testhash.get(pid).getFill().equals(Color.valueOf(fillcolor))) {
@@ -528,6 +349,9 @@ public class FXMLController implements Initializable {
         }
     }
 
+    /*  Dieses deleteToken wird für die Setzphase benötig um den eigenen Stein zu entfernen um es an einem anderen Ort zu setzten.
+        Es ist ähnlich aufgebaut wie deleteToken nur wird hier noch den Spielerinstanz entfernt wenn der if nicht wahr ist.
+    */
     private void deleteToken2() {
         if(!testhash.get(pid).getFill().equals(Color.valueOf(fillcolor))) {    
             testhash.get(pid).setFill(Color.valueOf(colortransparent));
@@ -543,6 +367,8 @@ public class FXMLController implements Initializable {
         }
     }
 
+    /*  Es ist das gleiche wie deleteToken2 nur wird hier der Spielerinstanz auf jump gesetzt.
+    */
     private void deleteToken3() {
         if(!testhash.get(pid).getFill().equals(Color.valueOf(fillcolor))) {    
             testhash.get(pid).setFill(Color.valueOf(colortransparent));
@@ -559,11 +385,14 @@ public class FXMLController implements Initializable {
         return;
     }
 
+    /* Diese Methode wird benutzt für die Öffnung einer Mühle. Hier wird die Mühle welches mit diesem Feld verbunden ist auf false gestellt. 
+    Dies wird für die horizontale Mühlen durchgeführt.
+    */
     private void hundomill() {
         int x = 1;
         for(int i = 1; i < 9; i++){
             for(int j = 1; j < 4; j++) {
-                if(Hhash.get(x).equals(lastpid)) {
+                if(Hm.Hhash.get(x).equals(lastpid)) {
                     hmill[i] = false;
                     System.out.println("Undo mill at: " + i + " horizontal.");
                 }else{
@@ -574,11 +403,12 @@ public class FXMLController implements Initializable {
         }
     }
 
+    // Hier wird ebenfalls die Mühle welches mit dem Feld verbunden ist auf false gestellt. Dies wird für die vertikale Mühlen durchgeführt um die Mühle zu öffnen.
     private void vundomill() {        
         int x = 1;
         for(int i = 1; i < 9; i++){
             for(int j = 1; j < 4; j++) {
-                if(Vhash.get(x).equals(lastpid)) {
+                if(Hm.Vhash.get(x).equals(lastpid)) {
                     vmill[i] = false;
                     System.out.println("Undo mill at: " + i + " vertical.");
                 }else{
@@ -589,6 +419,7 @@ public class FXMLController implements Initializable {
         }
     }
 
+    // Diese Methode überprüft ob der Wert in dem hmillhash Hashmap übereinstimmt mit true. Falls dies wahr ist wird hundo durchgeführt.
     private void hundo(){
         if(hmillhash.get(lastpid).equals(true)) {
             hundomill();
@@ -597,6 +428,7 @@ public class FXMLController implements Initializable {
         }
     }
 
+    // Diese Methode ist das gleiche wie hundo einfach für die vertikalen Mühlen.
     private void vundo(){
         if(vmillhash.get(lastpid).equals(true)) {
             vundomill();
@@ -605,6 +437,7 @@ public class FXMLController implements Initializable {
         }
     }
 
+    // Die Methode ist für die Sprungphase gemacht. Für wenn eine Mühle geöffnet wird. 
     private void undomilljump() {
         if(vmillhash.get(lastpid).equals(true)) {
             vundomill();
@@ -616,12 +449,7 @@ public class FXMLController implements Initializable {
         return;
     }
 
-    public void setfalse() {
-        for(int i = 1; i <= 24; i++){
-            paneStatus[i] = false;
-        }
-    }
-
+    // Diese Methode setzt alle Werte in diesem Array auf false.
     public void setmillfalse() {
         for(int i = 1; i <= 8; i++){
             hmill[i] = false;
@@ -629,8 +457,9 @@ public class FXMLController implements Initializable {
         }
     }
 
-    /* This method is used to place tokens by setting the circle color to the players color.
-    First it checks if the circle is filled.*/
+    /*  Dies ist die Methode die benötigt wird um Steine zu setzten. Dies gilt für die Setztphase, Zugphase und Sprungphase.
+        Als erstes wird überprüft um welchen Spieler es sich handelt und danach wird die Farbe des Spielers gesetzt
+    */
     private void settoken() {
         if(currentPlayer.getSpielerNummer()==Player1.getSpielerNummer()) {
             testhash.get(pid).setFill(Color.valueOf(colorbeige));
@@ -643,7 +472,7 @@ public class FXMLController implements Initializable {
         }
     }
 
-    // This method, reduces the tokens of a player, if the opponent player is able to take one away
+    // Diese Methode wird benötigt um die Steinzähler des Spielers zu reduzieren, wenn dieser ein Stein verliert.
     private void reducetoken() {
         if(currentPlayer.getSpielerNummer()==Player1.getSpielerNummer()) {
             Player1.setanzSteine(Player1.getanzSteine()-1);
@@ -654,6 +483,7 @@ public class FXMLController implements Initializable {
         }
     }
 
+    // Diese Methode ist das Gegenteil von reducetoken. Sie wird benötigt um den Steinzähler zu erhöhen wenn der Spieler ein stein gesetzt hat in der Setztphase.
     private void increasetoken() {
         if(currentPlayer.getSpielerNummer()==Player1.getSpielerNummer()) {
             Player1.setanzSteine(Player1.getanzSteine()+1);
@@ -664,6 +494,7 @@ public class FXMLController implements Initializable {
         }
     }
     
+    // Initialisierung vom Objekt Spieler und Labels
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         currentPlayer = new Spieler(1, 0, 0, " ");
@@ -679,7 +510,7 @@ public class FXMLController implements Initializable {
         lblzuege.setText("Gesamt anzahl Züge: ");
     }
 
-    // counts the amount of turns of a player
+    // Dies ist der Zugzähler. Dieser zählt die Züge eines Spielers und muss bei jeder Phase vorkommen. Dies ist auch noch mit den Labels verküpft in der Gui.
     private int zugzaehler() {
         if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
             Player1.setanzZuege(Player1.getanzZuege() + 1);
@@ -694,7 +525,7 @@ public class FXMLController implements Initializable {
         }
     }
 
-    // changes the current player to the next player
+    //  Diese Methode wechselt den Spieler.
     private int changePlayer() {
         if (currentPlayer.getSpielerNummer() == Player1.getSpielerNummer()) {
             currentPlayer = Player2;
@@ -705,14 +536,17 @@ public class FXMLController implements Initializable {
         }
     }
 
-    // removes the player inctance of all players
+    //  Diese Methode wird am Anfang initialisiert und setzt einen leeren String.
     private void removeplayerinstance() {
         currentPlayer.setplayerInstance(" ");
         Player1.setplayerInstance(" ");
         Player2.setplayerInstance(" ");
     }
 
-    // switch case for all the different kinds of mills
+    /*  Dies ist der Switchcase, jede Methode ist für jedes Feld im Gridpane. Diese Methoden dienen dazu um herauszufinden ob sich
+        horizontal oder vertikal die gleichen Steine befinden. Falls dies der Fall ist wird die Mühle auf war gesetzt. Folgende Variablen
+        werden auf wahr gesetzt: hmill/vmill und muehle.
+    */
     private void checkpane() {
         switch (pid) {
             case "1":
@@ -813,6 +647,9 @@ public class FXMLController implements Initializable {
         }
     }
 
+    /*  Dies ist eine zweite Case, diese überprüft ober der Spieler seinen Stein bei der Zugphase zu weit setzen will.
+        Wenn dies der Fall ist gibt es eine Meldung aus und der Spieler muss sich eine neu Position aussuchen, dass
+        nicht so weit weg ist vom Ausgangspunkt. Jedes Case steht für einen Feld (Eckpunkt/Schnittpunkt) auf dem Mühlespielfeld. */
     private void undomillswitch() {
         switch (lastpid) {
             case "1":
@@ -1138,86 +975,6 @@ public class FXMLController implements Initializable {
 
         }
     }
-    public void HHashMap() {
-        Hhash.put(1, "1");
-        Hhash.put(2, "2");
-        Hhash.put(3, "3");
-        Hhash.put(4, "4");
-        Hhash.put(5, "5");
-        Hhash.put(6, "6");
-        Hhash.put(7, "7");
-        Hhash.put(8, "8");
-        Hhash.put(9, "9");
-        Hhash.put(10, "10");
-        Hhash.put(11, "11");
-        Hhash.put(12, "12");
-        Hhash.put(13, "13");
-        Hhash.put(14, "14");
-        Hhash.put(15, "15");
-        Hhash.put(16, "16");
-        Hhash.put(17, "17");
-        Hhash.put(18, "18");
-        Hhash.put(19, "19");
-        Hhash.put(20, "20");
-        Hhash.put(21, "21");
-        Hhash.put(22, "22");
-        Hhash.put(23, "23");
-        Hhash.put(24, "24");
-    }
-
-    public void VHashMap() {
-        Vhash.put(1, "1");
-        Vhash.put(2, "10");
-        Vhash.put(3, "22");
-        Vhash.put(4, "4");
-        Vhash.put(5, "11");
-        Vhash.put(6, "19");
-        Vhash.put(7, "7");
-        Vhash.put(8, "12");
-        Vhash.put(9, "16");
-        Vhash.put(10, "2");
-        Vhash.put(11, "5");
-        Vhash.put(12, "8");
-        Vhash.put(13, "17");
-        Vhash.put(14, "20");
-        Vhash.put(15, "23");
-        Vhash.put(16, "9");
-        Vhash.put(17, "13");
-        Vhash.put(18, "18");
-        Vhash.put(19, "6");
-        Vhash.put(20, "14");
-        Vhash.put(21, "21");
-        Vhash.put(22, "3");
-        Vhash.put(23, "15");
-        Vhash.put(24, "24");
-    }
-
-    public void pidHashMap() {
-        pidhash.put("1", 1);
-        pidhash.put("2", 2);
-        pidhash.put("3", 3);
-        pidhash.put("4", 4);
-        pidhash.put("5", 5);
-        pidhash.put("6", 6);
-        pidhash.put("7", 7);
-        pidhash.put("8", 8);
-        pidhash.put("9", 9);
-        pidhash.put("10", 10);
-        pidhash.put("11", 11);
-        pidhash.put("12", 12);
-        pidhash.put("13", 13);
-        pidhash.put("14", 14);
-        pidhash.put("15", 15);
-        pidhash.put("16", 16);
-        pidhash.put("17", 17);
-        pidhash.put("18", 18);
-        pidhash.put("19", 19);
-        pidhash.put("20", 20);
-        pidhash.put("21", 21);
-        pidhash.put("22", 22);
-        pidhash.put("23", 23);
-        pidhash.put("24", 24);
-    }
 
     public void TestHashMap() {
         testhash.put("1", circ1);
@@ -1245,6 +1002,8 @@ public class FXMLController implements Initializable {
         testhash.put("23", circ23);
         testhash.put("24", circ24);
     }
+
+    
 
     public void HMillStatusHashMap() {
         hmillhash.put("1", hmill[1]);
@@ -1666,54 +1425,29 @@ public class FXMLController implements Initializable {
     
     @FXML
     void initialize() {
-        assert box1 != null : "fx:id=\"box1\" was not injected: check your FXML file 'view.fxml'.";
         assert circ1 != null : "fx:id=\"circ1\" was not injected: check your FXML file 'view.fxml'.";
-        assert box2 != null : "fx:id=\"box2\" was not injected: check your FXML file 'view.fxml'.";
         assert circ2 != null : "fx:id=\"circ2\" was not injected: check your FXML file 'view.fxml'.";
-        assert box3 != null : "fx:id=\"box3\" was not injected: check your FXML file 'view.fxml'.";
         assert circ3 != null : "fx:id=\"circ3\" was not injected: check your FXML file 'view.fxml'.";
-        assert box4 != null : "fx:id=\"box4\" was not injected: check your FXML file 'view.fxml'.";
         assert circ4 != null : "fx:id=\"circ4\" was not injected: check your FXML file 'view.fxml'.";
-        assert box5 != null : "fx:id=\"box5\" was not injected: check your FXML file 'view.fxml'.";
         assert circ5 != null : "fx:id=\"circ5\" was not injected: check your FXML file 'view.fxml'.";
-        assert box6 != null : "fx:id=\"box6\" was not injected: check your FXML file 'view.fxml'.";
         assert circ6 != null : "fx:id=\"circ6\" was not injected: check your FXML file 'view.fxml'.";
-        assert box7 != null : "fx:id=\"box7\" was not injected: check your FXML file 'view.fxml'.";
         assert circ7 != null : "fx:id=\"circ7\" was not injected: check your FXML file 'view.fxml'.";
-        assert box8 != null : "fx:id=\"box8\" was not injected: check your FXML file 'view.fxml'.";
         assert circ8 != null : "fx:id=\"circ8\" was not injected: check your FXML file 'view.fxml'.";
-        assert box9 != null : "fx:id=\"box9\" was not injected: check your FXML file 'view.fxml'.";
         assert circ9 != null : "fx:id=\"circ9\" was not injected: check your FXML file 'view.fxml'.";
-        assert box10 != null : "fx:id=\"box10\" was not injected: check your FXML file 'view.fxml'.";
         assert circ10 != null : "fx:id=\"circ10\" was not injected: check your FXML file 'view.fxml'.";
-        assert box11 != null : "fx:id=\"box11\" was not injected: check your FXML file 'view.fxml'.";
         assert circ11 != null : "fx:id=\"circ11\" was not injected: check your FXML file 'view.fxml'.";
-        assert box12 != null : "fx:id=\"box12\" was not injected: check your FXML file 'view.fxml'.";
         assert circ12 != null : "fx:id=\"circ12\" was not injected: check your FXML file 'view.fxml'.";
-        assert box13 != null : "fx:id=\"box13\" was not injected: check your FXML file 'view.fxml'.";
         assert circ13 != null : "fx:id=\"circ13\" was not injected: check your FXML file 'view.fxml'.";
-        assert box14 != null : "fx:id=\"box14\" was not injected: check your FXML file 'view.fxml'.";
         assert circ14 != null : "fx:id=\"circ14\" was not injected: check your FXML file 'view.fxml'.";
-        assert box15 != null : "fx:id=\"box15\" was not injected: check your FXML file 'view.fxml'.";
         assert circ15 != null : "fx:id=\"circ15\" was not injected: check your FXML file 'view.fxml'.";
-        assert box16 != null : "fx:id=\"box16\" was not injected: check your FXML file 'view.fxml'.";
         assert circ16 != null : "fx:id=\"circ16\" was not injected: check your FXML file 'view.fxml'.";
-        assert box17 != null : "fx:id=\"box17\" was not injected: check your FXML file 'view.fxml'.";
         assert circ17 != null : "fx:id=\"circ17\" was not injected: check your FXML file 'view.fxml'.";
-        assert box18 != null : "fx:id=\"box18\" was not injected: check your FXML file 'view.fxml'.";
         assert circ18 != null : "fx:id=\"circ18\" was not injected: check your FXML file 'view.fxml'.";
-        assert box19 != null : "fx:id=\"box19\" was not injected: check your FXML file 'view.fxml'.";
         assert circ19 != null : "fx:id=\"circ19\" was not injected: check your FXML file 'view.fxml'.";
-        assert box20 != null : "fx:id=\"box20\" was not injected: check your FXML file 'view.fxml'.";
         assert circ20 != null : "fx:id=\"circ20\" was not injected: check your FXML file 'view.fxml'.";
-        assert box21 != null : "fx:id=\"box21\" was not injected: check your FXML file 'view.fxml'.";
         assert circ21 != null : "fx:id=\"circ21\" was not injected: check your FXML file 'view.fxml'.";
-        assert box22 != null : "fx:id=\"box22\" was not injected: check your FXML file 'view.fxml'.";
         assert circ22 != null : "fx:id=\"circ22\" was not injected: check your FXML file 'view.fxml'.";
-        assert box23 != null : "fx:id=\"box23\" was not injected: check your FXML file 'view.fxml'.";
         assert circ23 != null : "fx:id=\"circ23\" was not injected: check your FXML file 'view.fxml'.";
-        assert box24 != null : "fx:id=\"box24\" was not injected: check your FXML file 'view.fxml'.";
         assert circ24 != null : "fx:id=\"circ24\" was not injected: check your FXML file 'view.fxml'.";
-
     }
 }
